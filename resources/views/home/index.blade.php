@@ -36,7 +36,7 @@
         }
 
         #section0 {
-            background-image: url({{URL::asset('images/1.jpg')}});
+            background-image: url({{URL::asset('images/4.jpg')}});
             color: #fff;
             text-shadow: 1px 1px 1px #333;
         }
@@ -48,7 +48,7 @@
         }
 
         #section2 {
-            background-image: url({{URL::asset('images/3.jpg')}});
+            background-image: url({{URL::asset('images/1.jpg')}});
             color: #fff;
             text-shadow: 1px 1px 1px #666;
         }
@@ -59,9 +59,9 @@
             text-shadow: 1px 1px 1px #fff;
         }
 
-        #section0 p {
-            color: #F1FF00;
-        }
+        /*#section0 p {*/
+        /*color: #F1FF00;*/
+        /*}*/
 
         #section3 p {
             color: #00A3AF;
@@ -69,16 +69,6 @@
 
         .left {
             float: left;
-        }
-
-        h1 {
-            font-size: 6em;
-            font-weight: normal;
-        }
-
-        p {
-            font-size: 2em;
-            margin: 0.5em 0 2em 0;
         }
 
         .intro {
@@ -127,19 +117,34 @@
             margin-left: 0;
         }
 
-        #section0 .title {
+        /*#section0 .title {*/
+        /*-webkit-transform: translateX(-100%);*/
+        /*transform: translateX(-100%);*/
+        /*-webkit-animation: sectitle0 1s ease-in-out 100ms forwards;*/
+        /*animation: sectitle0 1s ease-in-out 100ms forwards;*/
+        /*}*/
+
+        /*#section0 p {*/
+        /*-webkit-transform: translateX(100%);*/
+        /*transform: translateX(100%);*/
+        /*-webkit-animation: sec0 1s ease-in-out 100ms forwards;*/
+        /*animation: sec0 1s ease-in-out 100ms forwards;*/
+        /*}*/
+
+        #section0 .load-left {
             -webkit-transform: translateX(-100%);
             transform: translateX(-100%);
             -webkit-animation: sectitle0 1s ease-in-out 100ms forwards;
             animation: sectitle0 1s ease-in-out 100ms forwards;
         }
 
-        #section0 p {
+        #section0 .load-right {
             -webkit-transform: translateX(100%);
             transform: translateX(100%);
             -webkit-animation: sec0 1s ease-in-out 100ms forwards;
             animation: sec0 1s ease-in-out 100ms forwards;
         }
+
 
         @-webkit-keyframes sectitle0 {
             0% {
@@ -184,6 +189,52 @@
                 transform: translateX(0);
             }
         }
+
+        .tab-pro {
+
+        }
+
+        /*卡片样式*/
+        .card-tab {
+            width: 200px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            text-align: center;
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .card-tab a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .card-tab-header {
+            color: #fff;
+            padding: 10px;
+            font-size: 15px;
+        }
+
+        .card-tab-body {
+            padding: 10px;
+        }
+
+        .card-tab-body li {
+            list-style-type: none;
+        }
+
+        .card-tab-body a {
+            padding: 5px 0;
+            display: block;
+        }
+
+        .card-tab-body a:hover {
+            background: #eee;
+            color: red;
+        }
+
+        /*卡片样式*/
+
     </style>
 </head>
 <body>
@@ -191,8 +242,26 @@
     <div class="sections">
         <div class="section active" id="section0">
             <div class="intro">
-                <h1 class="title">switchPage</h1>
-                <p>Create Beautiful Fullscreen Scrolling Websites</p>
+
+                @foreach ($configTab as $tabValue)
+                    <div class="card-tab load-top">
+                        <div class="card-tab-header" style="background-color: {{ $tabValue['color'] }};">
+                            <p>{{ $tabValue['name'] }}</p>
+                        </div>
+                        <div class="card-tab-body">
+                            <ul>
+                                @foreach ($configTabUrl as $urlKey=> $urlValue)
+                                    @if ($tabValue['type']===$urlValue['type'])
+                                        <li>
+                                            <a target="{{ $urlValue['target'] }}"
+                                               href="{{ $tabValue['domain'].$urlValue['url'] }}">{{ $urlKey }}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
         <div class="section" id="section1">
