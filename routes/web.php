@@ -12,3 +12,5 @@
 */
 
 Route::get('/',  'HomeController@index');
+
+Route::get('/home/multiPage/{pages}',  'HomeController@multiPage')->where('pages', '.*');;

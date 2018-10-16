@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>locHome</title>
+    <link rel="stylesheet" href="{{URL::asset('/static/layui-v2.4.3/layui/css/layui.css')}}">
     <!-- Fonts -->
     <!-- Styles -->
     <style type="text/css">
@@ -145,7 +146,6 @@
             animation: sec0 1s ease-in-out 100ms forwards;
         }
 
-
         @-webkit-keyframes sectitle0 {
             0% {
                 -webkit-transform: translateX(-100%);
@@ -190,10 +190,6 @@
             }
         }
 
-        .tab-pro {
-
-        }
-
         /*卡片样式*/
         .card-tab {
             width: 200px;
@@ -201,7 +197,15 @@
             text-align: center;
             display: inline-block;
             margin-right: 10px;
-            font-size: 18px;
+            font-size: 14px;
+            border-radius: 10px;
+            /*box-shadow: 10px 10px 10px #888888;*/
+            transition: all 0.2s;
+
+        }
+
+        .card-tab:hover {
+            transform: scale(1.1);
         }
 
         .card-tab a {
@@ -212,7 +216,7 @@
         .card-tab-header {
             color: #fff;
             padding: 10px;
-            font-size: 15px;
+            font-size: 16px;
         }
 
         .card-tab-body {
@@ -229,20 +233,55 @@
         }
 
         .card-tab-body a:hover {
-            background: #eee;
-            color: red;
+            background: #64B5F6;
+            color: #FF8F00;
+            background-color: rgba(0, 0, 0, 0.2);
+
         }
 
         /*卡片样式*/
+
+        .search-form {
+            padding-bottom: 10px;
+        }
+
+        .search-text {
+            width: 540px;
+            height: 40px;
+        }
+
+        .search-button {
+            height: 40px;
+        }
+        .search-button:hover{
+           border-color: #D84315;
+        }
+
 
     </style>
 </head>
 <body>
 <div id="container" data-PageSwitch>
     <div class="sections">
-        <div class="section active" id="section0">
-            <div class="intro">
 
+        <div class="section active" id="section0">
+
+            <div class="intro">
+                <div class="search-form">
+                    <form action="http://www.baidu.com/baidu" target="_self">
+                        <input name=tn type=hidden value=baidu>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <input class="layui-input search-text" lay-verify="title" type='text' autocomplete="off"
+                                       name=word size=30
+                                       autofocus>
+                            </div>
+                            <div class="layui-inline">
+                                <input class="layui-btn layui-btn-primary search-button" type="submit" value="百度搜索">
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 @foreach ($configTab as $tabValue)
                     <div class="card-tab load-top">
                         <div class="card-tab-header" style="background-color: {{ $tabValue['color'] }};">
@@ -287,6 +326,7 @@
     </div>
 </div>
 <script type="text/javascript" src="{{URL::asset('/static/jquery/jquery-1.11.2.min.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('/static/layui-v2.4.3/layui/layui.js')}}"></script>
 <script type="text/javascript" src="{{URL::asset('/js/extend/pageswitch.js')}}"></script>
 <!--<script type="text/javascript">
 $("#container").PageSwitch({

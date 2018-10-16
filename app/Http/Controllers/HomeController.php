@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 class HomeController extends Controller {
 
     public function index() {
@@ -9,34 +11,40 @@ class HomeController extends Controller {
             'lan' => [
                 'type' => 'warehouse',
                 'name' => 'LAN',
-                'color' => '#5BC0DE',
+                'color' => '#00838F',
                 'domain' => 'http://wms4sz2.lan'
             ],
             'd01' => [
                 'type' => 'warehouse',
                 'name' => '深圳仓',
-                'color' => 'green',
+                'color' => '#F9A825',
                 'domain' => 'http://wms4sz1.yafex.cn'
             ],
             'd02' => [
                 'type' => 'warehouse',
                 'name' => '浒关仓',
-                'color' => '#5BC0DE',
+                'color' => '#558B2F',
                 'domain' => 'http://218.4.82.250:8040'
             ],
             'd03' => [
                 'type' => 'warehouse',
                 'name' => '苏州仓',
-                'color' => 'green',
+                'color' => '#D84315',
                 'domain' => 'http://218.4.82.250:8050'
             ],
             'build' => [
                 'type' => 'build',
-                'color' => '#5BC0DE',
+                'color' => '#6A1B9A',
                 'name' => '工具',
                 'domain' => ''
             ],
         ];
+        $jsUrl = '';
+        $mqUrl = '';
+        foreach ($configTab as $item) {
+            $item['type'] === 'warehouse' && $mqUrl .= $item['domain'] . '/?c=of_base_com_mq&__OF_DEBUG__=,';
+            $item['type'] === 'warehouse' && $jsUrl .= $item['domain'] . '/?c=of_base_htmlTpl_tool&a=index&__OF_DEBUG__=,';
+        }
         $configTabUrl = [
             '构建' => [
                 'url' => 'http://192.168.1.147:8080/job/wms4sz2/',
@@ -44,12 +52,12 @@ class HomeController extends Controller {
                 'type' => 'build',
             ],
             '刷新JS' => [
-                'url' => '/include/of/?c=of_base_htmlTpl_tool&a=index&__OF_DEBUG__=',
+                'url' => '/home/multiPage/' . base64_encode(trim($jsUrl, ',')),
                 'target' => '_self',
                 'type' => 'build',
             ],
             '重启消息队列' => [
-                'url' => '/?c=of_base_com_mq&__OF_DEBUG__=',
+                'url' => '/home/multiPage/' . base64_encode(trim($mqUrl, ',')),
                 'target' => '_self',
                 'type' => 'build',
             ],
@@ -93,6 +101,14 @@ class HomeController extends Controller {
         return view('home.index', [
             'configTab' => $configTab,
             'configTabUrl' => $configTabUrl,
+        ]);
+    }
+
+    public function multiPage(Request $request) {
+        $pages = base64_decode($request->pages);
+        $pagesArr = explode(",", trim($pages, ','));
+        return view('home.multiPage', [
+            'pages' => $pagesArr
         ]);
     }
 }
