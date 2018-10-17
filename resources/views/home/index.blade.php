@@ -196,12 +196,11 @@
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             text-align: center;
             display: inline-block;
-            margin-right: 10px;
             font-size: 14px;
             border-radius: 10px;
             /*box-shadow: 10px 10px 10px #888888;*/
             transition: all 0.2s;
-
+            margin: 0 10px 16px 0;
         }
 
         .card-tab:hover {
@@ -253,8 +252,9 @@
         .search-button {
             height: 40px;
         }
-        .search-button:hover{
-           border-color: #D84315;
+
+        .search-button:hover {
+            border-color: #D84315;
         }
 
 
@@ -307,14 +307,12 @@
             <div class="intro">
                 <h1 class="title">Example</h1>
                 <p>HTML markup example to define 4 sections</p>
-                <img src="{{URL::asset('images/example.png')}}"/>
             </div>
         </div>
         <div class="section" id="section2">
             <div class="intro">
                 <h1 class="title">Example</h1>
                 <p>The plug-in configuration parameters</p>
-                <img src="{{URL::asset('images/example2.png')}}"/>
             </div>
         </div>
         <div class="section" id="section3">

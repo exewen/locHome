@@ -32,6 +32,12 @@ class HomeController extends Controller {
                 'color' => '#D84315',
                 'domain' => 'http://218.4.82.250:8050'
             ],
+            'd04' => [
+                'type' => 'warehouse',
+                'name' => '菲律宾仓',
+                'color' => '#6D4C41',
+                'domain' => 'http://wms4ph1.yafex.cn'
+            ],
             'build' => [
                 'type' => 'build',
                 'color' => '#6A1B9A',
