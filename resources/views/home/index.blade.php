@@ -45,18 +45,18 @@
         #section1 {
             color: #fff;
             text-shadow: 1px 1px 1px #333;
-            background-image: url({{URL::asset('images/2.jpg')}});
+            background-image: url({{URL::asset('images/3.jpg')}});
         }
 
         #section2 {
-            background-image: url({{URL::asset('images/1.jpg')}});
+            background-image: url({{URL::asset('images/2.jpg')}});
             color: #fff;
             text-shadow: 1px 1px 1px #666;
         }
 
         #section3 {
             color: #008283;
-            background-image: url({{URL::asset('images/4.jpg')}});
+            background-image: url({{URL::asset('images/1.jpg')}});
             text-shadow: 1px 1px 1px #fff;
         }
 
@@ -132,18 +132,18 @@
         /*animation: sec0 1s ease-in-out 100ms forwards;*/
         /*}*/
 
-        #section0 .load-left {
+        #section0 .load-move:nth-of-type(odd) {
             -webkit-transform: translateX(-100%);
             transform: translateX(-100%);
             -webkit-animation: sectitle0 1s ease-in-out 100ms forwards;
-            animation: sectitle0 1s ease-in-out 100ms forwards;
+            animation: sectitle0 0.3s ease-in-out 100ms forwards;
         }
 
-        #section0 .load-right {
+        #section0 .load-move:nth-of-type(even) {
             -webkit-transform: translateX(100%);
             transform: translateX(100%);
             -webkit-animation: sec0 1s ease-in-out 100ms forwards;
-            animation: sec0 1s ease-in-out 100ms forwards;
+            animation: sec0 0.6s ease-in-out 100ms forwards;
         }
 
         @-webkit-keyframes sectitle0 {
@@ -260,7 +260,7 @@
 
     </style>
 </head>
-<body>
+<body onload="loadMove()">
 <div id="container" data-PageSwitch>
     <div class="sections">
 
@@ -283,7 +283,7 @@
                     </form>
                 </div>
                 @foreach ($configTab as $tabValue)
-                    <div class="card-tab load-top">
+                    <div class="card-tab load-move-layz">
                         <div class="card-tab-header" style="background-color: {{ $tabValue['color'] }};">
                             <p>{{ $tabValue['name'] }}</p>
                         </div>
@@ -326,6 +326,11 @@
 <script type="text/javascript" src="{{URL::asset('/static/jquery/jquery-1.11.2.min.js')}}"></script>
 <script type="text/javascript" src="{{URL::asset('/static/layui-v2.4.3/layui/layui.js')}}"></script>
 <script type="text/javascript" src="{{URL::asset('/js/extend/pageswitch.js')}}"></script>
+<script>
+    function loadMove() {
+        //$('.load-move-layz').addClass('load-move');
+    }
+</script>
 <!--<script type="text/javascript">
 $("#container").PageSwitch({
     direction : "horizontal"
