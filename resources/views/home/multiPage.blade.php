@@ -18,9 +18,11 @@
         }
 
         iframe {
-            width: calc(50% - 5px);
-            height: 50%;
+            width: calc(50% - 25px);
+            height: 200px;
             overflow: hidden;
+            margin: 0 20px 20px 0;
+            background: #eee;
         }
     </style>
 </head>
