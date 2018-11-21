@@ -22,6 +22,6 @@
     #https
     RewriteEngine on
     RewriteCond %{SERVER_PORT} !^443$
-    RewriteCond %{SERVER_NAME} !^(www\.)?lan.exeweb.lan(/)?.*$ [NC]
+    RewriteCond %{SERVER_NAME} !^(www\.)?[\S]+.lan(/)?.*$ [NC]
     RewriteRule (.*) https://%{SERVER_NAME}/$1 [R]
 </IfModule>
