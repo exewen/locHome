@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller {
+
+    public function test() {
+        $users = DB::select('select * from users where 1', [1]);
+        exit(var_dump($users));
+    }
 
     public function index() {
         $configTab = [
