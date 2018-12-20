@@ -20,6 +20,12 @@ class HomeController extends Controller {
                 'color' => '#00838F',
                 'domain' => 'http://wms4sz2.lan'
             ],
+            'dev' => [
+                'type' => 'warehouse',
+                'name' => '开发',
+                'color' => '#00838F',
+                'domain' => 'http://wms4sz2.dev.yafex.cn'
+            ],
             'd01' => [
                 'type' => 'warehouse',
                 'name' => '深圳仓',
@@ -30,13 +36,13 @@ class HomeController extends Controller {
                 'type' => 'warehouse',
                 'name' => '浒关仓',
                 'color' => '#558B2F',
-                'domain' => 'http://218.4.82.250:8040'
+                'domain' => 'http://wms4sz2.yafex.cn:8040'
             ],
             'd03' => [
                 'type' => 'warehouse',
                 'name' => '苏州仓',
                 'color' => '#D84315',
-                'domain' => 'http://218.4.82.250:8050'
+                'domain' => 'http://wms4sz3.yafex.cn:8050'
             ],
             'd04' => [
                 'type' => 'warehouse',
