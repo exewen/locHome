@@ -65,7 +65,7 @@ class HomeController extends Controller {
         }
         $configTabUrl = [
             '构建' => [
-                'url' => 'http://192.168.1.147:8080/job/wms4sz2/',
+                'url' => 'https://jenkins.yafex.cn/job/wms4sz2prod/',
                 'target' => '_self',
                 'type' => 'build',
             ],
