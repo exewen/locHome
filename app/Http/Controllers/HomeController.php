@@ -100,7 +100,7 @@ class HomeController extends Controller {
                 'target' => '_self',
                 'type' => 'warehouse',
             ],
-            '出库列表' => [
+            '出库列表1' => [
                 'url' => '/?c=ctrl_pickOrder&a=index&orderState=40&problemType=normal&PHC=1',
                 'target' => '_self',
                 'type' => 'warehouse',
