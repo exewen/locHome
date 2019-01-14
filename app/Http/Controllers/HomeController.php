@@ -105,6 +105,11 @@ class HomeController extends Controller {
                 'target' => '_self',
                 'type' => 'warehouse',
             ],
+            '基础环境' => [
+                'url' => '/?c=ctrl_dd&a=index',
+                'target' => '_self',
+                'type' => 'warehouse',
+            ],
             'TEST' => [
                 'url' => '/?c=demo_jiangshangjun&a=index',
                 'target' => '_self',
