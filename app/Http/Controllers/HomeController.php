@@ -84,6 +84,11 @@ class HomeController extends Controller {
                 'target' => '_self',
                 'type' => 'build',
             ],
+            'OPS-OA' => [
+                'url' => 'https://opsoa.yafex.cn/flow/db/list',
+                'target' => '_self',
+                'type' => 'build',
+            ],
 
             '主页' => [
                 'url' => '/',
@@ -100,7 +105,7 @@ class HomeController extends Controller {
                 'target' => '_self',
                 'type' => 'warehouse',
             ],
-            '出库列表1' => [
+            '出库列表' => [
                 'url' => '/?c=ctrl_pickOrder&a=index&orderState=40&problemType=normal&PHC=1',
                 'target' => '_self',
                 'type' => 'warehouse',
