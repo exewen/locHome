@@ -11,8 +11,12 @@
 |
 */
 
-Route::get('/',  'HomeController@index');
+Route::get('/', 'HomeController@index');
 
-Route::get('/home/multiPage/{pages}',  'HomeController@multiPage')->where('pages', '.*');;
+Route::get('/home/multiPage/{pages}', 'HomeController@multiPage')->where('pages', '.*');;
 
-Route::get('/test',  'HomeController@test');
+Route::get('/test', 'HomeController@test');
+
+Route::get('/speech', 'SpeechController@index');
+
+Route::get('/speech/api/{pageKey}', 'SpeechController@api');
