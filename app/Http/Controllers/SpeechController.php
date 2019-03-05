@@ -28,13 +28,18 @@ class SpeechController extends Controller {
             $data = json_decode($json_string, true);
             if (isset($data['msg']) && !empty($data['msg'])) {
                 $pageNow = $request->pageKey;
+                $pageNow === 'auto' && $pageNow = !empty(Cache::get('page_now')) ? Cache::get('page_now') : 0;
                 //翻译行数
-                $limit = 50;
+                $limit = 100;
                 $msgArr = explode('。', $data['msg']);
                 //翻译
                 $msg = '';
                 $start = $pageNow;
                 for ($i = $start; $i < $start + $limit; $i++) {
+                    //翻译长度限制
+                    if (strlen($msg) > 5000) {
+                        break;
+                    }
                     $msg .= isset($msgArr[$i]) ? $msgArr[$i] : '';
                     $pageNow++;
                 }
@@ -42,7 +47,11 @@ class SpeechController extends Controller {
                 $result = CoreSpeech::make($msg);
                 if ($result['state'] === 200) {
                     $result['data']['file'] = str_replace('/Users/exeweb/Sites/locHome/public', '', $result['data']['file']);
-                    exit(print_r("<a target='_blank' href='" . $result['data']['file'] . "'>文件</a>"));
+                    $lastPage = $pageNow - $limit * 2;
+                    $urlInfo = "<a href='/speech/api/{$lastPage}'>上一页</a> 
+                    <a href='/speech/api/{$pageNow}'>下一页</a>
+                    <a target='_blank' href='" . $result['data']['file'] . "'>结束位置:{$pageNow}</a><hr>";
+                    exit(print_r($urlInfo));
                 }
                 exit(var_dump($result));
             } else {
