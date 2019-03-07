@@ -1,112 +1,132 @@
-$().ready(function(){
-	//当前播放器状态
-	var playStatus = {
-		currentTrackLen: playlist.result.tracks.length,
-		currentTrackIndex: 0,
-		currentTime: 0,
-		currentTotalTime: 0,
-		playStatus: true,
-	};
+var page = null, playList = [];
 
-	//播放器控制方法
-	var playerControls = {
-		//歌曲基本信息
-		trackInfo: function(args){
-			var obj = playlist.result.tracks[playStatus.currentTrackIndex];
+var progress = document.getElementById('progress');
+var playpause = document.getElementById("play-pause");
+var volume = document.getElementById("volume");
+var audio = document.getElementById('audio');
+audio.controls = false;
+audio.addEventListener('timeupdate', function () {
+    updateProgress();
+}, false);
 
-			args = args || {
-				name:obj.name,
-				artist:obj.artists[0].name,
-				album:obj.album.name,
-				albumPic:obj.album.picUrl + '?param=270y270',
-				total:obj.duration,
-				src: obj.mp3Url,
-			};
+/**
+ * 暂停播放
+ */
+function togglePlayPause() {
+    if (audio.paused || audio.ended) {
+        playpause.title = "Pause";
+        playpause.innerHTML = '<i class="fa fa-pause fa-3x"></i>';
+        audio.play();
+    } else {
+        playpause.title = "Play";
+        playpause.innerHTML = '<i class="fa fa-play fa-3x"></i>';
+        audio.pause();
+    }
+}
 
-			$('.player .trackInfo .name').text(args.name);
-			$('.player .trackInfo .artist').text(args.artist);
-			$('.player .trackInfo .album').text(args.album);
-			$('.player .albumPic').css('background','url(' + args.albumPic + ')');
-			$('.player .time .total').text(timeConvert(args.total / 1000));
-			playStatus.currentTotalTime = Math.floor(args.total / 1000);
-			$('#audio source').attr('src',args.src);
-		},
+/**
+ * 设置音量
+ */
+function setVolume() {
+    audio.volume = volume.value;
+}
 
-		//播放、暂停状态处理
-		playStatus: function(){
-			$('.player .controls .play i').attr('class', 'icon-' + (playStatus.playStatus?'pause':'play'));
+/**
+ * 更新进度
+ */
+function updateProgress() {
+    var percent = Math.floor((100 / audio.duration) * audio.currentTime);
+    progress.value = percent;
+    if (parseInt(percent) > 10 && playList.length === 0) {
+        getAjaxList();
+        console.log('下一页');
+    }
+    var canvas = document.getElementById('progress');
+    var context = canvas.getContext('2d');
+    var centerX = canvas.width / 2;
+    var centerY = canvas.height / 2;
+    var radius = 150;
+    var circ = Math.PI * 2;
+    var quart = Math.PI / 2;
+    var cpercent = percent / 100;
+    context.beginPath();
+    context.arc(centerX, centerY, radius, 0, ((circ) * cpercent), false);
+    context.lineWidth = 10;
+    context.strokeStyle = '#26C5CB';
+    context.stroke();
+    //if (audio.ended) resetPlayer();
+    audio.addEventListener('ended', playEndedHandler, false)
+}
 
-			if(playStatus.playStatus){
-				$('#audio')[0].play();
-			}else{
-				$('#audio')[0].pause();
-			}
-		},
+function resetPlayer() {
+    var canvas = document.getElementById('progress');
+    var context = canvas.getContext('2d');
+    var centerX = canvas.width / 2;
+    var centerY = canvas.height / 2;
+    audio.currentTime = 0;
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    playpause.title = "Play";
+    playpause.innerHTML = '<i class="fa fa-play fa-3x"></i>';
+}
 
-		//当前时间和进度处理
-		playTime: function(){
-			$('.player .time .current').text(timeConvert(playStatus.currentTime));
-			$('.player .progress').css('width', playStatus.currentTime / playStatus.currentTotalTime * 100 + '%');
-		}
+function getAjaxList() {
+    $("#page").text(page);
+    $.ajax({
+        url: '/speech/api/' + page,
+        type: 'GET',
+        async: false,
+        success: function (res) {
+            if (res.state === 200) {
+                page = res.data.nextPage;
+                playList.push(res.data.url);
+            } else {
+                alert(res.info);
+            }
+        },
+        error: function () {
+            alert('AIP ERR');
+        },
 
-	};
+    });
+}
 
-	var timeConvert = function(timestamp){
-		var minutes = Math.floor(timestamp / 60);
-		var seconds = Math.floor(timestamp - (minutes * 60));
+/**
+ * 描述 : 播放完成回调
+ * 作者 : jiangshangjun
+ */
+function playEndedHandler() {
+    resetPlayer();
+    play();
+    togglePlayPause();
+}
 
-		if(seconds < 10) {
-			seconds = '0' + seconds;
-		}
+function play() {
+    if (playList.length === 0) {
+        getAjaxList();
+    }
+    audio.src = playList.pop();
+}
 
-		timestamp = minutes + ':' + seconds;
-		return timestamp;
-	};
-
-	(function(){
-		playerControls.trackInfo();
-		playerControls.playStatus();
-
-		$('.player .controls .play').click(function(){
-			playStatus.playStatus = !playStatus.playStatus;
-			playerControls.playStatus();
-		});
-
-		$('.player .controls .previous').click(function(){
-			if(playStatus.currentTrackIndex - 1 < 0){
-				alert('已经没有上一首了');
-			}else{
-				playStatus.currentTrackIndex --;
-			}
-
-			$('#audio').remove();
-			$('.player').append('<audio id="audio"><source src=""></audio>');
-			playerControls.trackInfo();
-			playerControls.playStatus();
-		});
-
-		$('.player .controls .next').click(function(){
-			if(playStatus.currentTrackIndex + 1 >= playStatus.currentTrackLen){
-				alert('已经没有下一首了');
-			}else{
-				playStatus.currentTrackIndex ++;
-			}
-
-			//换src的方法没法切换声音，试了好几种方法都不行，只能删了再重建了
-			$('#audio').remove();
-			$('.player').append('<audio id="audio"><source src=""></audio>');
-			playerControls.trackInfo();
-			playerControls.playStatus();
-		});
-
-		setInterval(function(){
-			playStatus.currentTime = $('#audio')[0].currentTime;
-			playerControls.playTime();
-
-			if(playStatus.currentTime >= playStatus.currentTotalTime){
-				$('.player .controls .next').click();
-			}
-		}, 300);
-	})();
-
+$(function () {
+    if (page === null) {
+        page = parseInt(prompt("请输入页数"));
+    }
+    play();
 });
+// window.onload = function(){
+// 	var arr = ["http://lan.exeweb.lan/uploads/cache/voice/20190307/141c1ebedf7f666ee52563c37d4aa825.mp3","http://lan.exeweb.lan/uploads/cache/voice/20190307/141c1ebedf7f666ee52563c37d4aa825.mp3"];               //把需要播放的歌曲从后往前排，这里已添加两首音乐，可继续添加多个音乐
+// 	var myAudio = new Audio();
+// 	myAudio.preload = true;
+// 	myAudio.controls = true;
+// 	myAudio.src = arr.pop();         //每次读数组最后一个元素
+// 	myAudio.addEventListener('ended', playEndedHandler, false);
+// 	myAudio.play();
+// 	document.getElementById("audioBox").appendChild(myAudio);
+// 	myAudio.loop = false;//禁止循环，否则无法触发ended事件
+// 	function playEndedHandler(){
+// 		myAudio.src = arr.pop();
+// 		myAudio.play();
+// 		console.log(arr.length);
+// 		!arr.length && myAudio.removeEventListener('ended',playEndedHandler,false);//只有一个元素时解除绑定
+// 	}
+// }

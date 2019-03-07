@@ -35,13 +35,14 @@ class CoreSpeech {
      */
     public static function make($msg = null) {
         $config = array(
-            'spd' => 5,//语速，取值0-9，默认为5中语速
+            'spd' => 4,//语速，取值0-9，默认为5中语速
             'pit' => 5,//音调，取值0-9，默认为5中语调
             'vol' => 10,//音量，取值0-15，默认为5中音量
             'per' => 3,//发音人选择, 0为女声，1为男声，3为情感合成-度逍遥，4为情感合成-度丫丫，默认为普通女
         );
         $filename = md5($msg . serialize($config));
-        $route = public_path('uploads') . "/cache/voice/" . date('Ymd', time()) . "/";
+        $url = "/cache/voice/" . date('Ymd', time()) . "/";
+        $route = public_path('uploads') . $url;
         $file = $route . $filename . ".mp3";
         if (CoreFile::createDir($route) && file_exists($file) === false) {
             $client = new AipSpeech(self::$apiId, self::$apiKey, self::$secretKey);
@@ -54,6 +55,7 @@ class CoreSpeech {
                     'name' => $filename,
                     'route' => $route,
                     'file' => $file,
+                    'url' => 'http://lan.exeweb.lan/uploads' . $url . $filename . '.mp3',
                 ));
             } else {
                 $result = array('state' => 300, 'info' => '生成失败', 'data' => $res);
@@ -66,6 +68,7 @@ class CoreSpeech {
                     'name' => $filename,
                     'route' => $route,
                     'file' => $file,
+                    'url' => 'http://lan.exeweb.lan/uploads' . $url . $filename . '.mp3',
                 ));
         }
         return $result;

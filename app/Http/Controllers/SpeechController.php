@@ -27,7 +27,7 @@ class SpeechController extends Controller {
             // 用参数true把JSON字符串强制转成PHP数组
             $data = json_decode($json_string, true);
             if (isset($data['msg']) && !empty($data['msg'])) {
-                $pageNow = $request->pageKey;
+                $pageNow = $tmpPageS = $request->pageKey;
                 $pageNow === 'auto' && $pageNow = !empty(Cache::get('page_now')) ? Cache::get('page_now') : 0;
                 //翻译行数
                 $limit = 100;
@@ -45,15 +45,17 @@ class SpeechController extends Controller {
                 }
                 Cache::forever('page_now', $pageNow);
                 $result = CoreSpeech::make($msg);
-                if ($result['state'] === 200) {
-                    $result['data']['file'] = str_replace('/Users/exeweb/Sites/locHome/public', '', $result['data']['file']);
-                    $lastPage = $pageNow - $limit * 2;
-                    $urlInfo = "<a href='/speech/api/{$lastPage}'>上一页</a> 
-                    <a href='/speech/api/{$pageNow}'>下一页</a>
-                    <a target='_blank' href='" . $result['data']['file'] . "'>结束位置:{$pageNow}</a><hr>";
-                    exit(print_r($urlInfo));
-                }
-                exit(var_dump($result));
+//                if ($result['state'] === 200) {
+//                    $result['data']['file'] = str_replace('/Users/exeweb/Sites/locHome/public', '', $result['data']['file']);
+//                    $lastPage = $pageNow - $limit * 2;
+//                    $urlInfo = "<a href='/speech/api/{$lastPage}'>上一页</a>
+//                    <a href='/speech/api/{$pageNow}'>下一页</a>
+//                    <a target='_blank' href='" . $result['data']['file'] . "'>结束位置:{$pageNow}</a><hr>";
+//                    exit(print_r($urlInfo));
+//                }
+//                exit(var_dump($result));
+                $result['data']['page'] = intval($tmpPageS);
+                $result['data']['nextPage'] = intval($pageNow);
             } else {
                 $result = array('state' => 300, 'info' => '文件错误');
             }
