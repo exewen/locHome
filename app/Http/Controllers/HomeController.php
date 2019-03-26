@@ -17,7 +17,7 @@ class HomeController extends Controller {
                 'type' => 'warehouse',
                 'name' => 'LAN',
                 'color' => '#00838F',
-                'domain' => 'http://wms4sz2.lan'
+                'domain' => 'http://localhost:8888/wms4sz2'
             ],
             'dev' => [
                 'type' => 'warehouse',
