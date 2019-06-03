@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+
 class HomeController extends Controller {
 
     public function test() {
@@ -78,13 +79,23 @@ class HomeController extends Controller {
                 'target' => '_self',
                 'type' => 'build',
             ],
-            'TAPD' => [
-                'url' => 'https://www.tapd.cn/my_worktable',
+//            'TAPD' => [
+//                'url' => 'https://www.tapd.cn/my_worktable',
+//                'target' => '_self',
+//                'type' => 'build',
+//            ],
+            'OA需求' => [
+                'url' => 'http://oa.yafex.cn/?c=gts_task&a=index',
+                'target' => '_self',
+                'type' => 'build',
+            ],
+            '测试构建' => [
+                'url' => 'https://jenkins.yafex.cn/job/wms4sz2dev/',
                 'target' => '_self',
                 'type' => 'build',
             ],
             'OPS-OA' => [
-                'url' => 'https://opsoa.yafex.cn/flow/db/list',
+                'url' => 'https://opsoa.yafex.cn/flow/gitflow/list',
                 'target' => '_self',
                 'type' => 'build',
             ],
