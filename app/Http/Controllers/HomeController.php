@@ -50,6 +50,12 @@ class HomeController extends Controller {
                 'color' => '#6D4C41',
                 'domain' => 'http://wms4ph1.yafex.cn'
             ],
+            'd10' => [
+                'type' => 'warehouse',
+                'name' => '广州仓',
+                'color' => '#F9A825',
+                'domain' => 'http://wms4gz1.yafex.cn'
+            ],
             'build' => [
                 'type' => 'build',
                 'color' => '#6A1B9A',
@@ -64,8 +70,18 @@ class HomeController extends Controller {
             $item['type'] === 'warehouse' && $jsUrl .= $item['domain'] . '/?c=of_base_htmlTpl_tool&a=index&__OF_DEBUG__=,';
         }
         $configTabUrl = [
+            'OA需求' => [
+                'url' => 'http://oa.yafex.cn/?c=gts_task&a=index',
+                'target' => '_self',
+                'type' => 'build',
+            ],
             '构建' => [
-                'url' => 'https://jenkins.yafex.cn/job/wms4sz2prod/',
+                'url' => 'https://opsoa.yafex.cn/flow/gitflow/list',
+                'target' => '_self',
+                'type' => 'build',
+            ],
+            '测试构建' => [
+                'url' => 'https://jenkins.yafex.cn/job/wms4sz2dev/',
                 'target' => '_self',
                 'type' => 'build',
             ],
@@ -84,22 +100,16 @@ class HomeController extends Controller {
 //                'target' => '_self',
 //                'type' => 'build',
 //            ],
-            'OA需求' => [
-                'url' => 'http://oa.yafex.cn/?c=gts_task&a=index',
+            'APS' => [
+                'url' => 'http://localhost:8888/aps/src/',
                 'target' => '_self',
                 'type' => 'build',
             ],
-            '测试构建' => [
-                'url' => 'https://jenkins.yafex.cn/job/wms4sz2dev/',
+            'OPS-DB' => [
+                'url' => 'https://opsoa.yafex.cn/flow/db/list',
                 'target' => '_self',
                 'type' => 'build',
             ],
-            'OPS-OA' => [
-                'url' => 'https://opsoa.yafex.cn/flow/gitflow/list',
-                'target' => '_self',
-                'type' => 'build',
-            ],
-
             '主页' => [
                 'url' => '/',
                 'target' => '_self',
