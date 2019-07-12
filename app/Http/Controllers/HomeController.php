@@ -71,7 +71,7 @@ class HomeController extends Controller {
         }
         $configTabUrl = [
             'OA需求' => [
-                'url' => 'http://oa.yafex.cn/?c=gts_task&a=index',
+                'url' => 'https://oa.yafex.cn/?c=gts_task&a=index&type=0&indexType=2&devUser=%E8%92%8B%E5%B0%9A%E5%90%9B',
                 'target' => '_self',
                 'type' => 'build',
             ],
