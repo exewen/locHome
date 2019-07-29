@@ -105,6 +105,11 @@ class HomeController extends Controller {
                 'target' => '_self',
                 'type' => 'build',
             ],
+            'intelligence' => [
+                'url' => 'http://localhost:8888/intelligence/src/',
+                'target' => '_self',
+                'type' => 'build',
+            ],
             'OPS-DB' => [
                 'url' => 'https://opsoa.yafex.cn/flow/db/list',
                 'target' => '_self',
