@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
-Route::get('/home/multiPage/{pages}', 'HomeController@multiPage')->where('pages', '.*');
-Route::get('/test', 'HomeController@test');
+Route::get('/', 'LocController@index');
+Route::get('/home/multiPage/{pages}', 'LocController@multiPage')->where('pages', '.*');
+Route::get('/test', 'LocController@test');
 Route::get('/speech', 'SpeechController@index');
 Route::get('/speech/api/{pageKey}', 'SpeechController@api');
 Route::get('/user/{name?}', function ($name=null) {

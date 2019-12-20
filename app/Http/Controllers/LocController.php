@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller {
+class LocController extends Controller {
 
     public function test() {
         $users = DB::select('select * from users where 1', [1]);
@@ -178,7 +178,7 @@ class HomeController extends Controller {
 
     public function index() {
         $urlArr = $this->getConfigTwo();
-        return view('home.index', [
+        return view('loc.index', [
             'configTab' => $urlArr[0],
             'configTabUrl' => $urlArr[1],
         ]);
@@ -187,7 +187,7 @@ class HomeController extends Controller {
     public function multiPage(Request $request) {
         $pages = base64_decode($request->pages);
         $pagesArr = explode(",", trim($pages, ','));
-        return view('home.multiPage', [
+        return view('loc.multiPage', [
             'pages' => $pagesArr
         ]);
     }
