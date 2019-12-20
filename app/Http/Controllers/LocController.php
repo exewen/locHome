@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class LocController extends Controller {
 
     public function test() {
-        $users = DB::select('select * from users where 1', [1]);
+        $users = DB::select('select * from test ');
         exit(var_dump($users));
     }
 
