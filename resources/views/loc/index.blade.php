@@ -282,21 +282,21 @@
                         </div>
                     </form>
                 </div>
-                @foreach ($configTab as $tabValue)
+                @foreach ($configs as $value)
                     <div class="card-tab load-move-layz">
-                        <div class="card-tab-header" style="background-color: {{ $tabValue['color'] }};">
-                            <p>{{ $tabValue['name'] }}</p>
+                        <div class="card-tab-header" style="background-color: {{ $value['color'] }};">
+                            <p>{{ $value['name'] }}</p>
                         </div>
                         <div class="card-tab-body">
                             <ul>
-                                @foreach ($configTabUrl as $urlKey=> $urlValue)
-                                    @if ($tabValue['type']===$urlValue['type'])
+                                @if ($value['items'])
+                                    @foreach ($value['items'] as $item)
                                         <li>
-                                            <a target="{{ $urlValue['target'] }}"
-                                               href="{{ $tabValue['domain'].$urlValue['url'] }}">{{ $urlKey }}</a>
+                                            <a target="{{ $item['target'] }}"
+                                               href="{{ $value['domain'].$item['url'] }}">{{ $item['name'] }}</a>
                                         </li>
-                                    @endif
-                                @endforeach
+                                    @endforeach
+                                @endif
                             </ul>
                         </div>
                     </div>

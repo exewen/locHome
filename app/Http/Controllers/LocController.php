@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
-class LocController extends Controller {
+class LocController extends Controller
+{
 
-    public function test() {
+    public function test()
+    {
         $users = DB::select('select * from test ');
         exit(var_dump($users));
     }
 
-    private function getConfigOne() {
+    private function getConfigOne()
+    {
         $tab = [
             'lan' => [
                 'type' => 'warehouse',
@@ -119,72 +122,98 @@ class LocController extends Controller {
         return [$tab, $url];
     }
 
-    private function getConfigTwo() {
-        $tab = [
-            'lan' => [
-                'type' => 'warehouse',
-                'name' => 'LAN',
+    private function configs()
+    {
+        $configs = [
+            'QAWMS' => [
+                'name' => 'QAWMS',
                 'color' => '#00838F',
-                'domain' => 'http://127.0.0.1'
+                'domain' => '',
+                'items' => [
+                    0 => [
+                        'url' => 'http://qawms.lan/',
+                        'name' => 'Lan',
+                        'target' => '_self',
+                    ],
+                    1 => [
+                        'url' => 'http://qawms.dev.interfocus.org/',
+                        'name' => 'Dev',
+                        'target' => '_self',
+                    ],
+                    2 => [
+                        'url' => 'http://qawms.dev.interfocus.org/',
+                        'name' => 'Git',
+                        'target' => '_self',
+                    ],
+                    3 => [
+                        'url' => 'http://192.168.9.157:8080/jenkins/job/qa-wms/',
+                        'name' => 'Jenkins',
+                        'target' => '_self',
+                    ],
+                ]
             ],
-            'dev' => [
-                'type' => 'warehouse',
-                'name' => '开发',
+            'SMS' => [
+                'name' => 'SMS',
                 'color' => '#00838F',
-                'domain' => 'http://qa-wms.dev.interfocus.org'
+                'domain' => '',
+                'items' => [
+                    0 => [
+                        'url' => 'http://sms.lan/',
+                        'name' => 'Lan',
+                        'target' => '_self',
+                    ],
+                    1 => [
+                        'url' => 'http://sms.dev.interfocus.org/',
+                        'name' => 'Dev',
+                        'target' => '_self',
+                    ],
+                    2 => [
+                        'url' => 'http://sms.dev.interfocus.org/',
+                        'name' => 'Git',
+                        'target' => '_self',
+                    ],
+                    3 => [
+                        'url' => 'http://192.168.9.157:8080/jenkins/job/sms/',
+                        'name' => 'Jenkins',
+                        'target' => '_self',
+                    ],
+                ]
             ],
+
             'build' => [
-                'type' => 'build',
                 'color' => '#6A1B9A',
                 'name' => '工具',
-                'domain' => ''
+                'domain' => '',
+                'items' => [
+                    0 => [
+                        'url' => 'https://exmail.qq.com/',
+                        'name' => '企业邮箱',
+                        'target' => '_self',
+                    ],
+                    1 => [
+                        'url' => 'https://eat5vr.axshare.com/#g=1&p=%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%B5%81%E7%A8%8B',
+                        'name' => '系统概述',
+                        'target' => '_self',
+                    ],
+                    2 => [
+                        'url' => 'https://www.italent.cn/',
+                        'name' => 'italent',
+                        'target' => '_self',
+                    ],
+                ]
             ],
         ];
-        $jsUrl = '';
-        $mqUrl = '';
-        foreach ($tab as $item) {
-            $item['type'] === 'warehouse' && $mqUrl .= $item['domain'] . '/?c=of_base_com_mq&__OF_DEBUG__=,';
-            $item['type'] === 'warehouse' && $jsUrl .= $item['domain'] . '/?c=of_base_htmlTpl_tool&a=index&__OF_DEBUG__=,';
-        }
-        $url = [
-            '主页' => [
-                'url' => '/',
-                'target' => '_self',
-                'type' => 'warehouse',
-            ],
-            'MBB' => [
-                'url' => '/mobile.php',
-                'target' => '_self',
-                'type' => 'warehouse',
-            ],
-            '企业邮箱' => [
-                'url' => 'https://exmail.qq.com/login',
-                'target' => '_self',
-                'type' => 'build',
-            ],
-            '系统概述' => [
-                'url' => 'https://eat5vr.axshare.com/',
-                'target' => '_self',
-                'type' => 'build',
-            ],
-            'QA产品' => [
-                'url' => 'https://zaaay8.axshare.com/#id=bjd41p&p=%E6%9D%A1%E7%A0%81%E6%96%B9%E6%A1%88&g=1',
-                'target' => '_self',
-                'type' => 'build',
-            ],
-        ];
-        return [$tab, $url];
+        return $configs;
     }
 
-    public function index() {
-        $urlArr = $this->getConfigTwo();
-        return view('loc.index', [
-            'configTab' => $urlArr[0],
-            'configTabUrl' => $urlArr[1],
-        ]);
+    public function index()
+    {
+        $configs = $this->configs();
+        return view('loc.index', ['configs' => $configs,]);
     }
 
-    public function multiPage(Request $request) {
+    public function multiPage(Request $request)
+    {
         $pages = base64_decode($request->pages);
         $pagesArr = explode(",", trim($pages, ','));
         return view('loc.multiPage', [
