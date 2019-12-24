@@ -141,7 +141,7 @@ class LocController extends Controller
                         'target' => '_self',
                     ],
                     2 => [
-                        'url' => 'http://qawms.dev.interfocus.org/',
+                        'url' => 'http://52.221.152.145:88/server/qa-wms',
                         'name' => 'Git',
                         'target' => '_self',
                     ],
@@ -168,7 +168,7 @@ class LocController extends Controller
                         'target' => '_self',
                     ],
                     2 => [
-                        'url' => 'http://sms.dev.interfocus.org/',
+                        'url' => 'http://52.221.152.145:88/server/sms',
                         'name' => 'Git',
                         'target' => '_self',
                     ],
