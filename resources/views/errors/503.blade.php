@@ -40,8 +40,14 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Be right back.</div>
+                @if($exception->getMessage())
+                    <h3></h3>
+                    <div class="title">{{$exception->getMessage()}}</div>
+                @else
+                    <div class="title">找不到你要的页面</div>
+                @endif
             </div>
+
         </div>
     </body>
 </html>

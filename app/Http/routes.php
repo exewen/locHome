@@ -23,3 +23,5 @@ Route::get('/user/{name?}', function ($name=null) {
 Route::auth();
 Route::get('/home', 'HomeController@index');
 
+Route::any('/api/business_method','LocController@params');
+

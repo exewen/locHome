@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class LocController extends Controller
 {
+
+    public function params(Request $request){
+        Log::info("接收到参数".json_encode($request->all()));
+        return $_GET;
+        return $request->all();
+    }
 
     public function test()
     {
@@ -136,7 +143,7 @@ class LocController extends Controller
                         'target' => '_self',
                     ],
                     1 => [
-                        'url' => 'http://qawms.dev.interfocus.org/',
+                        'url' => 'http://qa-wms.dev.interfocus.org/',
                         'name' => 'Dev',
                         'target' => '_self',
                     ],
@@ -174,6 +181,60 @@ class LocController extends Controller
                     ],
                     3 => [
                         'url' => 'http://192.168.9.157:8080/jenkins/job/sms/',
+                        'name' => 'Jenkins',
+                        'target' => '_self',
+                    ],
+                ]
+            ],
+            'TMS' => [
+                'name' => 'TMS',
+                'color' => '#00838F',
+                'domain' => '',
+                'items' => [
+                    0 => [
+                        'url' => 'http://qatms.lan/',
+                        'name' => 'Lan',
+                        'target' => '_self',
+                    ],
+                    1 => [
+                        'url' => 'http://qatms.dev.interfocus.org/',
+                        'name' => 'Dev',
+                        'target' => '_self',
+                    ],
+                    2 => [
+                        'url' => 'http://52.221.152.145:88/server/qa-tms',
+                        'name' => 'Git',
+                        'target' => '_self',
+                    ],
+                    3 => [
+                        'url' => 'http://192.168.9.157:8080/jenkins/job/qa-tms/',
+                        'name' => 'Jenkins',
+                        'target' => '_self',
+                    ],
+                ]
+            ],
+            'OC' => [
+                'name' => 'OC',
+                'color' => '#00838F',
+                'domain' => '',
+                'items' => [
+                    0 => [
+                        'url' => 'http://oc.lan/',
+                        'name' => 'Lan',
+                        'target' => '_self',
+                    ],
+                    1 => [
+                        'url' => 'http://oc.dev.interfocus.org/',
+                        'name' => 'Dev',
+                        'target' => '_self',
+                    ],
+                    2 => [
+                        'url' => '#',
+                        'name' => 'Git',
+                        'target' => '_self',
+                    ],
+                    3 => [
+                        'url' => '#',
                         'name' => 'Jenkins',
                         'target' => '_self',
                     ],
