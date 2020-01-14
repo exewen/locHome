@@ -25,3 +25,6 @@ Route::get('/home', 'HomeController@index');
 
 Route::any('/api/business_method','LocController@params');
 
+Route::any('/set_mq','Amqp\AmqpController@setMq');
+Route::any('/get_mq','Amqp\AmqpController@getMq');
+

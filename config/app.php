@@ -159,6 +159,8 @@ return [
         //其他服务提供者
         App\Providers\TestServiceProvider::class,
 
+        // IDE
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ],
 
     /*
