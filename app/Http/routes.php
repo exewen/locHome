@@ -30,5 +30,7 @@ Route::any('/set_mq','Amqp\AmqpController@setMq');
 Route::any('/get_mq','Amqp\AmqpController@getMq');
 Route::any('/simple/send','Amqp\SimpleController@send');
 Route::any('/worker/send','Amqp\WorkerController@send');
+Route::any('/subscribe/send','Amqp\SubscribeController@send');
+Route::any('/route/send','Amqp\RouteController@send');
 
 

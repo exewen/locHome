@@ -38,8 +38,10 @@ class Amqp extends Command
      */
     public function handle()
     {
-        //$obj = new \App\Http\Controllers\Amqp\SimpleController;
-        $obj = new \App\Http\Controllers\Amqp\WorkerController;
+        //$obj = new \App\Http\Controllers\Amqp\SimpleController();
+        //$obj = new \App\Http\Controllers\Amqp\WorkerController();
+        //$obj = new \App\Http\Controllers\Amqp\SubscribeController();
+        $obj = new \App\Http\Controllers\Amqp\RouteController();
         $obj->receive();
     }
 }

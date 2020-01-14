@@ -26,7 +26,7 @@ class SimpleController extends Controller
     }
 
     /**
-     * 接受
+     * 接收
      * @throws \ErrorException
      */
     public function receive()
