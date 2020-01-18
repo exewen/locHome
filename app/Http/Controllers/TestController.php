@@ -31,4 +31,8 @@ class TestController extends Controller
 //        $this->test->callMe('TestController');
     }
 
+    public function events(){
+        event(new App\Events\DemoEvent());
+    }
+
 }

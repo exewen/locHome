@@ -33,4 +33,6 @@ Route::any('/worker/send','Amqp\WorkerController@send');
 Route::any('/subscribe/send','Amqp\SubscribeController@send');
 Route::any('/route/send','Amqp\RouteController@send');
 
+//demo events
+Route::any('/events','TestController@events');
 
