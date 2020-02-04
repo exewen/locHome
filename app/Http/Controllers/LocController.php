@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\Log;
 class LocController extends Controller
 {
 
-    public function params(Request $request){
-        Log::info("接收到参数".json_encode($request->all()));
+    public function params(Request $request)
+    {
+        Log::info("接收到参数" . json_encode($request->all()));
         return $_GET;
         return $request->all();
     }
@@ -131,6 +132,8 @@ class LocController extends Controller
 
     private function configs()
     {
+        // $testDomain='.dev.interfocus.org';
+        $testDomain = '.dev.patpat.top';
         $configs = [
             'QAWMS' => [
                 'name' => 'QAWMS',
@@ -143,7 +146,7 @@ class LocController extends Controller
                         'target' => '_self',
                     ],
                     1 => [
-                        'url' => 'http://qa-wms.dev.interfocus.org/',
+                        'url' => 'http://qa-wms' . $testDomain,
                         'name' => 'Dev',
                         'target' => '_self',
                     ],
@@ -170,7 +173,7 @@ class LocController extends Controller
                         'target' => '_self',
                     ],
                     1 => [
-                        'url' => 'http://sms.dev.interfocus.org/',
+                        'url' => 'http://sms' . $testDomain,
                         'name' => 'Dev',
                         'target' => '_self',
                     ],
@@ -197,7 +200,7 @@ class LocController extends Controller
                         'target' => '_self',
                     ],
                     1 => [
-                        'url' => 'http://qatms.dev.interfocus.org/',
+                        'url' => 'http://qatms' . $testDomain,
                         'name' => 'Dev',
                         'target' => '_self',
                     ],
@@ -208,6 +211,33 @@ class LocController extends Controller
                     ],
                     3 => [
                         'url' => 'http://192.168.9.157:8080/jenkins/job/qa-tms/',
+                        'name' => 'Jenkins',
+                        'target' => '_self',
+                    ],
+                ]
+            ],
+            'WMS' => [
+                'name' => 'WMS',
+                'color' => '#00838F',
+                'domain' => '',
+                'items' => [
+                    0 => [
+                        'url' => 'http://wms.lan/',
+                        'name' => 'Lan',
+                        'target' => '_self',
+                    ],
+                    1 => [
+                        'url' => 'http://wms' . $testDomain,
+                        'name' => 'Dev',
+                        'target' => '_self',
+                    ],
+                    2 => [
+                        'url' => '#',
+                        'name' => 'Git',
+                        'target' => '_self',
+                    ],
+                    3 => [
+                        'url' => '#',
                         'name' => 'Jenkins',
                         'target' => '_self',
                     ],
@@ -224,7 +254,7 @@ class LocController extends Controller
                         'target' => '_self',
                     ],
                     1 => [
-                        'url' => 'http://oc.dev.interfocus.org/',
+                        'url' => 'http://oc' . $testDomain,
                         'name' => 'Dev',
                         'target' => '_self',
                     ],

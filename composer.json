@@ -87,7 +87,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "git@52.221.152.145:lib/rpc.git"
+            "url": "http://52.221.152.145:88/lib/rpc.git"
         }
     ]
 }
