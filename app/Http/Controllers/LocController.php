@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use App\Jobs\SendReminderEmail;
 
 class LocController extends Controller
 {
@@ -19,13 +18,8 @@ class LocController extends Controller
 
     public function test()
     {
-//        $users = DB::select('select * from test ');
-//        exit(var_dump($users));
-        //$job = new SendReminderEmail();
-        $job = new SendReminderEmail();
-        $res=$this->dispatch($job);
-       // $res = dispatch($job);
-        dd($res);
+        $users = DB::select('select * from test ');
+        exit(var_dump($users));
     }
 
     private function getConfigOne()
@@ -41,7 +35,7 @@ class LocController extends Controller
                 'type' => 'warehouse',
                 'name' => '开发',
                 'color' => '#00838F',
-                'domain' => 'http://qa-wms.dev.interfocus.vip'
+                'domain' => 'http://qa-wms.dev.interfocus.org'
             ],
             'build' => [
                 'type' => 'build',
@@ -138,7 +132,7 @@ class LocController extends Controller
 
     private function configs()
     {
-        // $testDomain='.dev.interfocus.vip';
+        // $testDomain='.dev.interfocus.org';
         $testDomain = '.dev.patpat.top';
         $configs = [
             'QAWMS' => [
@@ -206,7 +200,7 @@ class LocController extends Controller
                         'target' => '_self',
                     ],
                     1 => [
-                        'url' => 'http://qa-tms' . $testDomain,
+                        'url' => 'http://qatms' . $testDomain,
                         'name' => 'Dev',
                         'target' => '_self',
                     ],
