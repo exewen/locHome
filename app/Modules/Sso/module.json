@@ -1,0 +1,8 @@
+{
+	"name": "Sso",
+	"slug": "sso",
+	"namespace": "Sso",
+	"version": "1.0",
+	"description": "This is the description for the Sso module.",
+	"enabled": true
+}

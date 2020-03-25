@@ -37,3 +37,7 @@ Route::any('/ropic/send','Amqp\RopicController@send');
 //demo events
 Route::any('/events','TestController@events');
 
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');

@@ -161,6 +161,8 @@ return [
 
         // IDE
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
+        Caffeinated\Modules\ModulesServiceProvider::class
     ],
 
     /*
@@ -207,6 +209,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Module' => Caffeinated\Modules\Facades\Module::class
     ],
 
 ];

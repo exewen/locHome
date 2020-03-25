@@ -18,13 +18,13 @@ class LocController extends Controller
 
     public function test()
     {
-        $users = DB::select('select * from test ');
+        $users = DB::select('select * from users ');
         exit(var_dump($users));
     }
 
     private function configs()
     {
-        $testDomain='.dev.patpat.vip';
+        $testDomain = '.dev.patpat.vip';
         $testDomainTop = '.dev.patpat.top';
         $configs = [
             'QAWMS' => [
@@ -33,7 +33,7 @@ class LocController extends Controller
                 'domain' => '',
                 'items' => [
                     0 => [
-                        'url' => 'http://qawms.lan/',
+                        'url' => 'http://qa-wms.lan/',
                         'name' => 'Lan',
                         'target' => '_self',
                     ],
@@ -97,7 +97,7 @@ class LocController extends Controller
                 'domain' => '',
                 'items' => [
                     0 => [
-                        'url' => 'http://qatms.lan/',
+                        'url' => 'http://qa-tms.lan/',
                         'name' => 'Lan',
                         'target' => '_self',
                     ],
@@ -144,7 +144,7 @@ class LocController extends Controller
                         'target' => '_self',
                     ],
                     3 => [
-                        'url' => 'http://192.168.9.157:8080/jenkins/job/wms/',
+                        'url' => 'http://192.168.9.157:8080/jenkins/job/wms-test',
                         'name' => 'Jenkins',
                         'target' => '_self',
                     ],

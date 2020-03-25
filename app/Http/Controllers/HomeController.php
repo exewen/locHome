@@ -24,9 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = \Auth::user();
-        exit(dd(\Auth::check()));
-        exit(dd($user->toArray()));
         return view('home');
     }
 }
