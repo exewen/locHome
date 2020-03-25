@@ -2,13 +2,15 @@
 
 
 namespace App\Modules\Sso\Http\Controllers;
+
 use App\Http\Requests;
+use App\Services\API\ApiResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use DB,Redis,Session;
-const STRING_SINGLETOKEN_ = 'STRING_SINGLETOKEN_';
+use DB, Redis, Session;
+use Response;
 
-class IndexController extends  Controller
+class IndexController extends Controller
 {
     public function index()
     {
@@ -30,11 +32,12 @@ class IndexController extends  Controller
             // md5 加密
             $singleToken = md5($request->getClientIp() . $result->id . $time);
             // 当前 time 存入 Redis
-            Redis::set(STRING_SINGLETOKEN_ . $result->id, $time);
+            Redis::set(g_STRING_SINGLETOKEN . $result->id, $time);
             // 用户信息存入 Session
             Session::put('user_login', $result);
             // 跳转到首页, 并附带 Cookie
-            return response()->view('index')->withCookie('SINGLETOKEN', $singleToken);
+            //response()->withCookie('SINGLETOKEN', $singleToken);
+            return ApiResponse::success(['SINGLETOKEN' => $singleToken]);
         } else {
             # 登录失败逻辑处理
         }
