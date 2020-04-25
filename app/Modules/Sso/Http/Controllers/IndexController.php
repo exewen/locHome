@@ -39,7 +39,7 @@ class IndexController extends Controller
             //response()->withCookie('SINGLETOKEN', $singleToken);
             return ApiResponse::success(['SINGLETOKEN' => $singleToken]);
         } else {
-            # 登录失败逻辑处理
+            return ApiResponse::failure(g_API_ERROR,'密码错误');
         }
     }
 }

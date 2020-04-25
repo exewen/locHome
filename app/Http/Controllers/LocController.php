@@ -26,10 +26,11 @@ class LocController extends Controller
     {
         $testDomain = '.dev.patpat.vip';
         $testDomainTop = '.dev.patpat.top';
+        $domainLine = '.1000shores.com';
         $configs = [
             'QAWMS' => [
                 'name' => 'QAWMS',
-                'color' => '#00838F',
+                'color' => '#F17C67',
                 'domain' => '',
                 'items' => [
                     0 => [
@@ -47,6 +48,11 @@ class LocController extends Controller
                         'name' => 'Top',
                         'target' => '_self',
                     ],
+                    5 => [
+                        'url' => 'http://wms' . $domainLine,
+                        'name' => '1000',
+                        'target' => '_self',
+                    ],
                     2 => [
                         'url' => 'http://52.221.152.145:88/server/qa-wms/merge_requests/new#',
                         'name' => 'Git',
@@ -61,7 +67,7 @@ class LocController extends Controller
             ],
             'SMS' => [
                 'name' => 'SMS',
-                'color' => '#00838F',
+                'color' => '#C3BED4',
                 'domain' => '',
                 'items' => [
                     0 => [
@@ -79,6 +85,11 @@ class LocController extends Controller
                         'name' => 'Top',
                         'target' => '_self',
                     ],
+                    5 => [
+                        'url' => 'http://sms' . $domainLine,
+                        'name' => '1000',
+                        'target' => '_self',
+                    ],
                     2 => [
                         'url' => 'http://52.221.152.145:88/server/sms/merge_requests/new#',
                         'name' => 'Git',
@@ -93,7 +104,7 @@ class LocController extends Controller
             ],
             'TMS' => [
                 'name' => 'TMS',
-                'color' => '#00838F',
+                'color' => '#495A80',
                 'domain' => '',
                 'items' => [
                     0 => [
@@ -111,6 +122,12 @@ class LocController extends Controller
                         'name' => 'Top',
                         'target' => '_self',
                     ],
+
+                    5 => [
+                        'url' => 'http://tms' . $domainLine,
+                        'name' => '1000',
+                        'target' => '_self',
+                    ],
                     2 => [
                         'url' => 'http://52.221.152.145:88/server/qa-tms/merge_requests/new#',
                         'name' => 'Git',
@@ -125,7 +142,7 @@ class LocController extends Controller
             ],
             'WMS' => [
                 'name' => 'WMS',
-                'color' => '#00838F',
+                'color' => '#9966CC',
                 'domain' => '',
                 'items' => [
                     0 => [
@@ -152,7 +169,7 @@ class LocController extends Controller
             ],
             'OC' => [
                 'name' => 'OC',
-                'color' => '#00838F',
+                'color' => '#BDB76A',
                 'domain' => '',
                 'items' => [
                     0 => [
@@ -177,6 +194,33 @@ class LocController extends Controller
                     ],
                 ]
             ],
+            'FMS' => [
+                'name' => 'FMS',
+                'color' => '#483C32',
+                'domain' => '',
+                'items' => [
+                    0 => [
+                        'url' => 'http://fms.lan/',
+                        'name' => 'Lan',
+                        'target' => '_self',
+                    ],
+                    1 => [
+                        'url' => 'http://fms' . $testDomain,
+                        'name' => 'Dev',
+                        'target' => '_self',
+                    ],
+                    2 => [
+                        'url' => 'http://52.221.152.145:88/server/fms/merge_requests/new#',
+                        'name' => 'Git',
+                        'target' => '_self',
+                    ],
+                    3 => [
+                        'url' => 'http://192.168.9.157:8080/jenkins/job/fms/',
+                        'name' => 'Jenkins',
+                        'target' => '_self',
+                    ],
+                ]
+            ],
 
             'build' => [
                 'color' => '#6A1B9A',
@@ -184,7 +228,7 @@ class LocController extends Controller
                 'domain' => '',
                 'items' => [
                     0 => [
-                        'url' => 'https://exmail.qq.com/',
+                        'url' => 'https://exmail.qq.com/login',
                         'name' => '企业邮箱',
                         'target' => '_self',
                     ],
@@ -196,6 +240,11 @@ class LocController extends Controller
                     2 => [
                         'url' => 'https://www.italent.cn/',
                         'name' => 'italent',
+                        'target' => '_self',
+                    ],
+                    3 => [
+                        'url' => 'http://confluence.interfocus.org/#all-updates',
+                        'name' => 'confluence',
                         'target' => '_self',
                     ],
                 ]

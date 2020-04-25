@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.2.45 on 2020-02-03 07:01:58.
+ * Generated for Laravel 5.2.45 on 2020-03-26 02:04:13.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -10507,6 +10507,300 @@ namespace Illuminate\Support\Facades {
  
 }
 
+namespace Caffeinated\Modules\Facades { 
+
+    class Module {
+        
+        /**
+         * Register the module service provider file from all modules.
+         *
+         * @return mixed 
+         * @static 
+         */ 
+        public static function register()
+        {
+            return \Caffeinated\Modules\Modules::register();
+        }
+        
+        /**
+         * Get all modules.
+         *
+         * @return \Caffeinated\Modules\Collection 
+         * @static 
+         */ 
+        public static function all()
+        {
+            return \Caffeinated\Modules\Modules::all();
+        }
+        
+        /**
+         * Get all module slugs.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function slugs()
+        {
+            return \Caffeinated\Modules\Modules::slugs();
+        }
+        
+        /**
+         * Get modules based on where clause.
+         *
+         * @param string $key
+         * @param mixed $value
+         * @return \Caffeinated\Modules\Collection 
+         * @static 
+         */ 
+        public static function where($key, $value)
+        {
+            return \Caffeinated\Modules\Modules::where($key, $value);
+        }
+        
+        /**
+         * Sort modules by given key in ascending order.
+         *
+         * @param string $key
+         * @return \Caffeinated\Modules\Collection 
+         * @static 
+         */ 
+        public static function sortBy($key)
+        {
+            return \Caffeinated\Modules\Modules::sortBy($key);
+        }
+        
+        /**
+         * Sort modules by given key in ascending order.
+         *
+         * @param string $key
+         * @return \Caffeinated\Modules\Collection 
+         * @static 
+         */ 
+        public static function sortByDesc($key)
+        {
+            return \Caffeinated\Modules\Modules::sortByDesc($key);
+        }
+        
+        /**
+         * Check if the given module exists.
+         *
+         * @param string $slug
+         * @return bool 
+         * @static 
+         */ 
+        public static function exists($slug)
+        {
+            return \Caffeinated\Modules\Modules::exists($slug);
+        }
+        
+        /**
+         * Returns count of all modules.
+         *
+         * @return int 
+         * @static 
+         */ 
+        public static function count()
+        {
+            return \Caffeinated\Modules\Modules::count();
+        }
+        
+        /**
+         * Get modules path.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getPath()
+        {
+            return \Caffeinated\Modules\Modules::getPath();
+        }
+        
+        /**
+         * Set modules path in "RunTime" mode.
+         *
+         * @param string $path
+         * @return object $this
+         * @static 
+         */ 
+        public static function setPath($path)
+        {
+            return \Caffeinated\Modules\Modules::setPath($path);
+        }
+        
+        /**
+         * Get path for the specified module.
+         *
+         * @param string $slug
+         * @return string 
+         * @static 
+         */ 
+        public static function getModulePath($slug)
+        {
+            return \Caffeinated\Modules\Modules::getModulePath($slug);
+        }
+        
+        /**
+         * Get modules namespace.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getNamespace()
+        {
+            return \Caffeinated\Modules\Modules::getNamespace();
+        }
+        
+        /**
+         * Get a module's properties.
+         *
+         * @param string $slug
+         * @return mixed 
+         * @static 
+         */ 
+        public static function getProperties($slug)
+        {
+            return \Caffeinated\Modules\Modules::getProperties($slug);
+        }
+        
+        /**
+         * Get a module property value.
+         *
+         * @param string $property
+         * @param mixed $default
+         * @return mixed 
+         * @static 
+         */ 
+        public static function getProperty($property, $default = null)
+        {
+            return \Caffeinated\Modules\Modules::getProperty($property, $default);
+        }
+        
+        /**
+         * Set a module property value.
+         *
+         * @param string $property
+         * @param mixed $value
+         * @return bool 
+         * @static 
+         */ 
+        public static function setProperty($property, $value)
+        {
+            return \Caffeinated\Modules\Modules::setProperty($property, $value);
+        }
+        
+        /**
+         * Gets all enabled modules.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function enabled()
+        {
+            return \Caffeinated\Modules\Modules::enabled();
+        }
+        
+        /**
+         * Gets all disabled modules.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function disabled()
+        {
+            return \Caffeinated\Modules\Modules::disabled();
+        }
+        
+        /**
+         * Check if specified module is enabled.
+         *
+         * @param string $slug
+         * @return bool 
+         * @static 
+         */ 
+        public static function isEnabled($slug)
+        {
+            return \Caffeinated\Modules\Modules::isEnabled($slug);
+        }
+        
+        /**
+         * Check if specified module is disabled.
+         *
+         * @param string $slug
+         * @return bool 
+         * @static 
+         */ 
+        public static function isDisabled($slug)
+        {
+            return \Caffeinated\Modules\Modules::isDisabled($slug);
+        }
+        
+        /**
+         * Enables the specified module.
+         *
+         * @param string $slug
+         * @return bool 
+         * @static 
+         */ 
+        public static function enable($slug)
+        {
+            return \Caffeinated\Modules\Modules::enable($slug);
+        }
+        
+        /**
+         * Disables the specified module.
+         *
+         * @param string $slug
+         * @return bool 
+         * @static 
+         */ 
+        public static function disable($slug)
+        {
+            return \Caffeinated\Modules\Modules::disable($slug);
+        }
+        
+        /**
+         * Refresh the cache with any newly found modules.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function cache()
+        {
+            return \Caffeinated\Modules\Modules::cache();
+        }
+        
+        /**
+         * Get the contents of the cache file.
+         * 
+         * The cache file lists all module slugs and their
+         * enabled or disabled status. This can be used to
+         * filter out modules depending on their status.
+         *
+         * @return \Caffeinated\Modules\Collection 
+         * @static 
+         */ 
+        public static function getCache()
+        {
+            return \Caffeinated\Modules\Modules::getCache();
+        }
+        
+        /**
+         * Set the given cache key value.
+         *
+         * @param string $key
+         * @param mixed $value
+         * @return int 
+         * @static 
+         */ 
+        public static function setCache($key, $value)
+        {
+            return \Caffeinated\Modules\Modules::setCache($key, $value);
+        }
+         
+    }
+ 
+}
+
 
 namespace  { 
 
@@ -12416,6 +12710,8 @@ namespace  {
     class Validator extends \Illuminate\Support\Facades\Validator {}
 
     class View extends \Illuminate\Support\Facades\View {}
+
+    class Module extends \Caffeinated\Modules\Facades\Module {}
  
 }
 
