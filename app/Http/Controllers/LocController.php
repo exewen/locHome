@@ -255,6 +255,7 @@ class LocController extends Controller
                 ]
             ],
         ];
+
         return $configs;
     }
 
