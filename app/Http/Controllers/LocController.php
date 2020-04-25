@@ -247,6 +247,11 @@ class LocController extends Controller
                         'name' => 'confluence',
                         'target' => '_self',
                     ],
+                    4 => [
+                        'url' => 'https://13.250.226.26/assets/user-asset/',
+                        'name' => '堡垒机',
+                        'target' => '_self',
+                    ],
                 ]
             ],
         ];
