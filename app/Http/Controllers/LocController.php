@@ -2,12 +2,68 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\BarcodeGenerator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Cache;
 
 class LocController extends Controller
 {
+    use BarcodeGenerator;
+
+    protected function qcTest()
+    {
+        $result = [];
+        $location = [
+            'A111',
+            'A112',
+            'A113',
+        ];
+        ksort($location);
+        $cacheKey = md5(json_encode($location));
+        if ($cache = Cache::get($cacheKey, false)) {
+            return unserialize($cache);
+        }
+
+        $sql = "SELECT
+	wsds.customer_id,
+	wsds.sku_code,
+	wsds.region_code,
+	wwa.subarea,
+	wsds.location,
+	wsds.quality_level,
+	sum( wsds.existing_number ) AS sum_existing_number,
+	sum( wsds.allocate_number ) AS sum_allocate_number,
+	wwa.type 
+FROM
+	`wms_sku_detail_stock` AS `wsds`
+	INNER JOIN `wms_locations` AS `wl` ON `wl`.`location_code` = `wsds`.`location`
+	INNER JOIN `wms_warehouse_areas` AS `wwa` ON `wl`.`warehouse_area_id` = `wwa`.`id` 
+WHERE
+	`wsds`.`existing_number` > '0' 
+	AND `wsds`.`location` IN ('" . join($location, '\',\'') . "') 
+	AND `wsds`.`customer_id` IN ( '1', '2' ) 
+GROUP BY
+	`wsds`.`customer_id`,
+	`wsds`.`location`,
+	`wsds`.`sku_code`,
+	`wsds`.`quality_level` 
+ORDER BY
+	`wsds`.`id`";
+        $res = DB::connection("mysql_qawms")->select($sql);
+        foreach ($location as  $v) {
+            $result['location'][$v] = $this->generateQRcodeBase64ImageString($v);
+        }
+        foreach ($res as $v) {
+            $key = $v->location;
+            $v->sku_code_qr_code = $this->generateQRcodeBase64ImageString($v->sku_code.'-0-NEW');
+            $result['skuCode'][$key][] = $v;
+        }
+        ksort($result);
+        Cache::put($cacheKey, serialize($result), 3600);
+        return $result;
+    }
 
     public function params(Request $request)
     {
@@ -27,6 +83,7 @@ class LocController extends Controller
         $testDomain = '.dev.patpat.vip';
         $testDomainTop = '.dev.patpat.top';
         $domainLine = '.1000shores.com';
+        $domainLine2 = '.interfocus.org';
         $configs = [
             'QAWMS' => [
                 'name' => 'QAWMS',
@@ -102,8 +159,8 @@ class LocController extends Controller
                     ],
                 ]
             ],
-            'TMS' => [
-                'name' => 'TMS',
+            'QATMS' => [
+                'name' => 'QATMS',
                 'color' => '#495A80',
                 'domain' => '',
                 'items' => [
@@ -155,6 +212,11 @@ class LocController extends Controller
                         'name' => 'Dev',
                         'target' => '_self',
                     ],
+                    5 => [
+                        'url' => 'http://wms' . $domainLine2,
+                        'name' => 'Line',
+                        'target' => '_self',
+                    ],
                     2 => [
                         'url' => 'http://52.221.152.145:88/server/wms/merge_requests/new#',
                         'name' => 'Git',
@@ -162,6 +224,39 @@ class LocController extends Controller
                     ],
                     3 => [
                         'url' => 'http://192.168.9.157:8080/jenkins/job/wms-test',
+                        'name' => 'Jenkins',
+                        'target' => '_self',
+                    ],
+                ]
+            ],
+            'TMS' => [
+                'name' => 'TMS',
+                'color' => '#495A80',
+                'domain' => '',
+                'items' => [
+                    0 => [
+                        'url' => 'http://tms.lan/',
+                        'name' => 'Lan',
+                        'target' => '_self',
+                    ],
+                    1 => [
+                        'url' => 'http://tms' . $testDomain,
+                        'name' => 'Dev',
+                        'target' => '_self',
+                    ],
+
+                    5 => [
+                        'url' => 'http://tms' . $domainLine2,
+                        'name' => 'Line',
+                        'target' => '_self',
+                    ],
+                    2 => [
+                        'url' => 'http://52.221.152.145:88/server/tms/merge_requests/new#',
+                        'name' => 'Git',
+                        'target' => '_self',
+                    ],
+                    3 => [
+                        'url' => 'http://192.168.9.157:8080/jenkins/job/tms/',
                         'name' => 'Jenkins',
                         'target' => '_self',
                     ],
@@ -180,6 +275,12 @@ class LocController extends Controller
                     1 => [
                         'url' => 'http://oc' . $testDomain,
                         'name' => 'Dev',
+                        'target' => '_self',
+                    ],
+
+                    5 => [
+                        'url' => 'http://oc' . $domainLine2,
+                        'name' => 'Line',
                         'target' => '_self',
                     ],
                     2 => [
@@ -207,6 +308,12 @@ class LocController extends Controller
                     1 => [
                         'url' => 'http://fms' . $testDomain,
                         'name' => 'Dev',
+                        'target' => '_self',
+                    ],
+
+                    5 => [
+                        'url' => 'http://fms' . $domainLine2,
+                        'name' => 'Line',
                         'target' => '_self',
                     ],
                     2 => [
@@ -259,10 +366,11 @@ class LocController extends Controller
         return $configs;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $configs = $this->configs();
-        return view('loc.index', ['configs' => $configs,]);
+        $qcTest = $this->qcTest();
+        return view('loc.index', compact('configs', 'qcTest'));
     }
 
     public function multiPage(Request $request)

@@ -13,9 +13,12 @@ define('LARAVEL_START', microtime(true));
 | loading of any our classes "manually". Feels great to relax.
 |
 */
-
+//这就是传说中Composer的自动加载文件
 require __DIR__.'/../vendor/autoload.php';
-
+//PSR0加载方式—对应的文件就是autoload_namespaces.php
+//PSR4加载方式—对应的文件就是autoload_psr4.php
+//其他加载类的方式—对应的文件就是autoload_classmap.php
+//加载公用方法—对应的文件就是autoload_files.php
 /*
 |--------------------------------------------------------------------------
 | Include The Compiled Class File
