@@ -6,7 +6,7 @@
     "authors": [
         {
             "name": "exeweb",
-            "homepage": "http://lochome.lan"
+            "homepage": "http://loc.exeweb.cn"
         }
     ],
     "type": "project",
@@ -26,7 +26,6 @@
         "prettus/l5-repository": "^2.6",
         "aws/aws-sdk-php-laravel": "^3.1",
         "aws/aws-sdk-php": "~3.0",
-        "patpat/lib": "0.1.*",
         "league/flysystem-aws-s3-v3": "^1.0",
         "intervention/image": "^2.3",
         "ps/image-optimizer": "^1.0",
@@ -35,9 +34,9 @@
         "rmccue/requests": ">=1.0",
         "owen-it/laravel-auditing": "v4.1.4",
         "psr/log": "1.0.2",
-        "patpat/laravel-log-collection": "dev-master",
         "barryvdh/laravel-dompdf": "^0.8.0",
-        "php-amqplib/php-amqplib":">=2.6.1"
+        "php-amqplib/php-amqplib":">=2.6.1",
+        "jormin/laravel-baidu-speech": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -83,11 +82,5 @@
     "config": {
         "preferred-install": "dist",
         "secure-http": false
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "http://52.221.152.145:88/lib/rpc.git"
-        }
-    ]
+    }
 }

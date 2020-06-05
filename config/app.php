@@ -162,7 +162,10 @@ return [
         // IDE
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
-        Caffeinated\Modules\ModulesServiceProvider::class
+        Caffeinated\Modules\ModulesServiceProvider::class,
+
+         //laravel-baidu-speech
+        Jormin\BaiduSpeech\BaiduSpeechServiceProvider::class,
     ],
 
     /*
@@ -208,6 +211,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Speech' => App\Services\Speech\Facades\Speech::class,
 
         'Module' => Caffeinated\Modules\Facades\Module::class
     ],

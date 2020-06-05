@@ -5,3 +5,8 @@
 Homestead.yaml
 Homestead.json
 .env
+/public/tmp/
+
+_ide_helper.php
+
+.DS_Store

@@ -76,6 +76,7 @@ function getAjaxList() {
         type: 'GET',
         async: false,
         success: function (res) {
+            console.log(res);
             if (res.state === 200) {
                 page = res.data.nextPage;
                 playList.push(res.data.url);

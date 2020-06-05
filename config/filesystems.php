@@ -62,6 +62,12 @@ return [
             'bucket' => 'your-bucket',
         ],
 
+        // 音频文件保存位置
+        'speech' => [
+            'driver'        => 'local',
+            'root'          => public_path(),
+        ],
+
     ],
 
 ];
