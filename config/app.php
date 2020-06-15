@@ -166,6 +166,8 @@ return [
 
          //laravel-baidu-speech
         Jormin\BaiduSpeech\BaiduSpeechServiceProvider::class,
+
+        App\Providers\ElasticSearchClientProvider::class,
     ],
 
     /*

@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
+use App\Services\Facades\ElasticSearchClient;
+use Log;
+use App\Jobs\ElasticSearchLog as JElasticSearchLog;
+
 class Handler extends ExceptionHandler
 {
     /**
@@ -34,6 +38,18 @@ class Handler extends ExceptionHandler
     public function report(Exception $e)
     {
         parent::report($e);
+        try {
+            ini_set("display_errors", "On");
+            error_reporting(E_ALL | E_STRICT);
+
+            $logs = ElasticSearchClient::getDocuments();
+            // 需要判断是否有日志
+            if (count($logs) > 0) {
+                dispatch(new JElasticSearchLog($logs));
+            }
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+        }
     }
 
     /**

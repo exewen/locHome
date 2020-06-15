@@ -11,6 +11,9 @@
 |
 */
 
+use App\Jobs\ElasticSearchLog;
+use App\Services\Facades\ElasticSearchClient;
+
 Route::get('/', 'LocController@index');
 Route::get('/home/multiPage/{pages}', 'LocController@multiPage')->where('pages', '.*');
 Route::get('/test', 'LocController@test');
@@ -43,4 +46,27 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::any('/es','EsController@index');
+Route::any('/test/log','EsController@Log');
+//
+//Route::get('/test/log', function () {
+//    // 日志同时写入 文件系统 和 ElasticSearch 系统
+//    Log::info('写入成功啦3，日志同时写入 文件系统 和 ElasticSearch 系统', ['code' => 0, 'msg' => '成功了，日志同时写入 文件系统 和 ElasticSearch 系统', 'data' => [1,2,3,4,5]]);
+////    $documents = ElasticSearchClient::getDocuments();
+////    // 需要判断是否有日志
+////    if (count($documents) > 0) {
+////        dispatch(new ElasticSearchLog($documents));
+////    }
+//});
+
+Route::get('/test/es', function () {
+    $hosts = [
+        env('ELASTIC_HOST'),
+    ];
+    $client = \Elasticsearch\ClientBuilder::create()->setHosts($hosts)->build();
+    try {
+        $response = $client->info();
+        return $response;
+    } catch (\Exception $e) {
+        return 'error: ' . $e->getMessage();
+    }
+});
