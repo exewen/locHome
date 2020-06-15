@@ -213,7 +213,9 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Speech' => App\Services\Speech\Facades\Speech::class,
 
-        'Module' => Caffeinated\Modules\Facades\Module::class
+        'Module' => Caffeinated\Modules\Facades\Module::class,
+
+        'CLog' => App\Services\Facades\CLogger::class,
     ],
 
 ];

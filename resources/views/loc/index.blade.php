@@ -360,9 +360,16 @@
             </div>
         </div>
         <div class="section" id="section2">
-            <div class="intro">
-                <h1 class="title">Example</h1>
-                <p>The plug-in configuration parameters</p>
+            <div class="intro" style="">
+                @foreach($timeTo as $val)
+                    <h1 class="title">{{$val['name']}}</h1>
+                    <span>{{$val['1']}}</span><br>
+                    <span>{{$val['2']}}</span><br>
+                    <span>{{$val['3']}}</span><br>
+                    <span>{{$val['4']}}</span><br>
+                    <span>{{$val['5']}}</span><br>
+                    <span>{{$val['6']}}</span><br><br>
+                @endforeach
             </div>
         </div>
         <div class="section" id="section3">

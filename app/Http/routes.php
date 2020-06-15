@@ -42,3 +42,5 @@ Route::any('/monologTest','MonologController@monologTest');
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+
+Route::any('/es','EsController@index');

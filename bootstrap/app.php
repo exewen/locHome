@@ -42,6 +42,11 @@ $app->singleton(
 );
 //3. 注册共享的Kernel和异常处理器 E
 
+// 自定义 Monolog 设置
+$app->configureMonologUsing(function($monolog) use ($app) {
+    $configureLogging = new \App\Services\ConfigureLogging();
+    $configureLogging->configureHandlers($app, $app->log);
+});
 /*
 |--------------------------------------------------------------------------
 | Return The Application

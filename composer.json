@@ -36,7 +36,8 @@
         "psr/log": "1.0.2",
         "barryvdh/laravel-dompdf": "^0.8.0",
         "php-amqplib/php-amqplib":">=2.6.1",
-        "jormin/laravel-baidu-speech": "^1.0"
+        "jormin/laravel-baidu-speech": "^1.0",
+        "elasticsearch/elasticsearch": "^6.7"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

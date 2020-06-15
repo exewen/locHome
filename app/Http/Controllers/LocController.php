@@ -8,12 +8,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Cache;
 
-class LocController extends Controller
-{
+class LocController extends Controller {
     use BarcodeGenerator;
 
-    protected function qcTest()
-    {
+    protected function repairDeliveryPhone($countryName, &$phone) {
+        $res = DB::table('oms_country_currency')->where('country_name', $countryName)->first(['phone_area_code']);
+        isset($res->phone_area_code) && $phone = $res->phone_area_code . $phone;
+    }
+
+    protected function qcTest() {
         $result = [];
         $location = [
             'A111',
@@ -52,12 +55,12 @@ GROUP BY
 ORDER BY
 	`wsds`.`id`";
         $res = DB::connection("mysql_qawms")->select($sql);
-        foreach ($location as  $v) {
+        foreach ($location as $v) {
             $result['location'][$v] = $this->generateQRcodeBase64ImageString($v);
         }
         foreach ($res as $v) {
             $key = $v->location;
-            $v->sku_code_qr_code = $this->generateQRcodeBase64ImageString($v->sku_code.'-0-NEW');
+            $v->sku_code_qr_code = $this->generateQRcodeBase64ImageString($v->sku_code . '-0-NEW');
             $result['skuCode'][$key][] = $v;
         }
         ksort($result);
@@ -65,21 +68,51 @@ ORDER BY
         return $result;
     }
 
-    public function params(Request $request)
-    {
+    protected function timeTo() {
+        date_default_timezone_set("Asia/Shanghai");
+        $time = time();
+        $today = date('Y-m-d', $time);
+        $position = '2020-05-31';// 定位大周
+        $weekend = date('Y-m-d', ($time + (7 - (date('w') == 0 ? 7 : date('w'))) * 24 * 3600));
+        $isSmall = ((strtotime($weekend) - strtotime($position)) / 86400 / 7) % 2;
+
+        $title = $isSmall ? '小' : '大';
+        $weekend = $isSmall ? date('Y-m-d', strtotime($weekend) - 86400) : date('Y-m-d', strtotime($weekend) - 86400 * 2);
+        $timeTo = [
+            0 => [
+                'name' => '距离下班',
+                'to' => $today . ' 19:00',
+            ],
+            1 => [
+                'name' => '距离' . $title . '周',
+                'to' => $weekend . ' 18:00',
+            ],
+        ];
+        foreach ($timeTo as &$item) {
+            $diff = strtotime($item['to']) - $time;
+            $diff < 0 && $diff = 0;
+            $item['1'] = $diff . '秒';
+            $item['2'] = round($diff / 60, 9) . '分钟';
+            $item['3'] = round($diff / 3600, 9) . '小时';
+            $item['4'] = round($diff / 86400, 9) . '天';
+            $item['5'] = round($diff / 86400 / 30, 9) . '月';
+            $item['6'] = round($diff / 86400 / 30 / 356, 9) . '年';
+        }
+        return $timeTo;
+    }
+
+    public function params(Request $request) {
         Log::info("接收到参数" . json_encode($request->all()));
         return $_GET;
         return $request->all();
     }
 
-    public function test()
-    {
+    public function test() {
         $users = DB::select('select * from users ');
         exit(var_dump($users));
     }
 
-    private function configs()
-    {
+    private function configs() {
         $testDomain = '.dev.patpat.vip';
         $testDomainTop = '.dev.patpat.top';
         $domainLine = '.1000shores.com';
@@ -366,15 +399,14 @@ ORDER BY
         return $configs;
     }
 
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         $configs = $this->configs();
         $qcTest = $this->qcTest();
-        return view('loc.index', compact('configs', 'qcTest'));
+        $timeTo = $this->timeTo();
+        return view('loc.index', compact('configs', 'qcTest', 'timeTo'));
     }
 
-    public function multiPage(Request $request)
-    {
+    public function multiPage(Request $request) {
         $pages = base64_decode($request->pages);
         $pagesArr = explode(",", trim($pages, ','));
         return view('loc.multiPage', [
