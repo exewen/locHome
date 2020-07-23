@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Config;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
-use PatPat\Monolog\Processor\IntrospectionProcessor;
-use PatPat\Monolog\Processor\ProjectProcessor;
+//use PatPat\Monolog\Processor\IntrospectionProcessor;
+//use PatPat\Monolog\Processor\ProjectProcessor;
 use Route;
 
 class CLoggerService
@@ -49,8 +49,8 @@ class CLoggerService
         $log_path = $default_log_path . '/' . ($dir ? ($dir . '/') : $module . $class) . $file_name;
         #processors
         $processors = [
-            new IntrospectionProcessor(),
-            new ProjectProcessor(),
+//            new IntrospectionProcessor(),
+//            new ProjectProcessor(),
         ];
         #save local log files
         $streamHandler = new StreamHandler($log_path);

@@ -1,0 +1,8 @@
+{
+	"name": "Att",
+	"slug": "att",
+	"namespace": "Att",
+	"version": "1.0",
+	"description": "This is the description for the Att module.",
+	"enabled": true
+}

@@ -118,118 +118,118 @@ ORDER BY
         $domainLine = '.1000shores.com';
         $domainLine2 = '.interfocus.org';
         $configs = [
-            'QAWMS' => [
-                'name' => 'QAWMS',
-                'color' => '#F17C67',
-                'domain' => '',
-                'items' => [
-                    0 => [
-                        'url' => 'http://qa-wms.lan/',
-                        'name' => 'Lan',
-                        'target' => '_self',
-                    ],
-                    1 => [
-                        'url' => 'http://qa-wms' . $testDomain,
-                        'name' => 'Dev',
-                        'target' => '_self',
-                    ],
-                    4 => [
-                        'url' => 'http://qa-wms' . $testDomainTop,
-                        'name' => 'Top',
-                        'target' => '_self',
-                    ],
-                    5 => [
-                        'url' => 'http://wms' . $domainLine,
-                        'name' => '1000',
-                        'target' => '_self',
-                    ],
-                    2 => [
-                        'url' => 'http://52.221.152.145:88/server/qa-wms/merge_requests/new#',
-                        'name' => 'Git',
-                        'target' => '_self',
-                    ],
-                    3 => [
-                        'url' => 'http://192.168.9.157:8080/jenkins/job/qa-wms/',
-                        'name' => 'Jenkins',
-                        'target' => '_self',
-                    ],
-                ]
-            ],
-            'SMS' => [
-                'name' => 'SMS',
-                'color' => '#C3BED4',
-                'domain' => '',
-                'items' => [
-                    0 => [
-                        'url' => 'http://sms.lan/',
-                        'name' => 'Lan',
-                        'target' => '_self',
-                    ],
-                    1 => [
-                        'url' => 'http://sms' . $testDomain,
-                        'name' => 'Dev',
-                        'target' => '_self',
-                    ],
-                    4 => [
-                        'url' => 'http://sms' . $testDomainTop,
-                        'name' => 'Top',
-                        'target' => '_self',
-                    ],
-                    5 => [
-                        'url' => 'http://sms' . $domainLine,
-                        'name' => '1000',
-                        'target' => '_self',
-                    ],
-                    2 => [
-                        'url' => 'http://52.221.152.145:88/server/sms/merge_requests/new#',
-                        'name' => 'Git',
-                        'target' => '_self',
-                    ],
-                    3 => [
-                        'url' => 'http://192.168.9.157:8080/jenkins/job/sms/',
-                        'name' => 'Jenkins',
-                        'target' => '_self',
-                    ],
-                ]
-            ],
-            'QATMS' => [
-                'name' => 'QATMS',
-                'color' => '#495A80',
-                'domain' => '',
-                'items' => [
-                    0 => [
-                        'url' => 'http://qa-tms.lan/',
-                        'name' => 'Lan',
-                        'target' => '_self',
-                    ],
-                    1 => [
-                        'url' => 'http://qa-tms' . $testDomain,
-                        'name' => 'Dev',
-                        'target' => '_self',
-                    ],
-                    4 => [
-                        'url' => 'http://qa-tms' . $testDomainTop,
-                        'name' => 'Top',
-                        'target' => '_self',
-                    ],
-
-                    5 => [
-                        'url' => 'http://tms' . $domainLine,
-                        'name' => '1000',
-                        'target' => '_self',
-                    ],
-                    2 => [
-                        'url' => 'http://52.221.152.145:88/server/qa-tms/merge_requests/new#',
-                        'name' => 'Git',
-                        'target' => '_self',
-                    ],
-                    3 => [
-                        'url' => 'http://192.168.9.157:8080/jenkins/job/qa-tms/',
-                        'name' => 'Jenkins',
-                        'target' => '_self',
-                    ],
-                ]
-            ],
+//            'QAWMS' => [
+//                'name' => 'QAWMS',
+//                'color' => '#F17C67',
+//                'domain' => '',
+//                'items' => [
+//                    0 => [
+//                        'url' => 'http://qa-wms.lan/',
+//                        'name' => 'Lan',
+//                        'target' => '_self',
+//                    ],
+//                    1 => [
+//                        'url' => 'http://qa-wms' . $testDomain,
+//                        'name' => 'Dev',
+//                        'target' => '_self',
+//                    ],
+//                    4 => [
+//                        'url' => 'http://qa-wms' . $testDomainTop,
+//                        'name' => 'Top',
+//                        'target' => '_self',
+//                    ],
+//                    5 => [
+//                        'url' => 'http://wms' . $domainLine,
+//                        'name' => '1000',
+//                        'target' => '_self',
+//                    ],
+//                    2 => [
+//                        'url' => 'http://52.221.152.145:88/server/qa-wms/merge_requests/new#',
+//                        'name' => 'Git',
+//                        'target' => '_self',
+//                    ],
+//                    3 => [
+//                        'url' => 'http://192.168.8.17:8080/jenkins/job/qa-wms/',
+//                        'name' => 'Jenkins',
+//                        'target' => '_self',
+//                    ],
+//                ]
+//            ],
+//            'SMS' => [
+//                'name' => 'SMS',
+//                'color' => '#C3BED4',
+//                'domain' => '',
+//                'items' => [
+//                    0 => [
+//                        'url' => 'http://sms.lan/',
+//                        'name' => 'Lan',
+//                        'target' => '_self',
+//                    ],
+//                    1 => [
+//                        'url' => 'http://sms' . $testDomain,
+//                        'name' => 'Dev',
+//                        'target' => '_self',
+//                    ],
+//                    4 => [
+//                        'url' => 'http://sms' . $testDomainTop,
+//                        'name' => 'Top',
+//                        'target' => '_self',
+//                    ],
+//                    5 => [
+//                        'url' => 'http://sms' . $domainLine,
+//                        'name' => '1000',
+//                        'target' => '_self',
+//                    ],
+//                    2 => [
+//                        'url' => 'http://52.221.152.145:88/server/sms/merge_requests/new#',
+//                        'name' => 'Git',
+//                        'target' => '_self',
+//                    ],
+//                    3 => [
+//                        'url' => 'http://192.168.8.17:8080/jenkins/job/sms/',
+//                        'name' => 'Jenkins',
+//                        'target' => '_self',
+//                    ],
+//                ]
+//            ],
+//            'QATMS' => [
+//                'name' => 'QATMS',
+//                'color' => '#495A80',
+//                'domain' => '',
+//                'items' => [
+//                    0 => [
+//                        'url' => 'http://qa-tms.lan/',
+//                        'name' => 'Lan',
+//                        'target' => '_self',
+//                    ],
+//                    1 => [
+//                        'url' => 'http://qa-tms' . $testDomain,
+//                        'name' => 'Dev',
+//                        'target' => '_self',
+//                    ],
+//                    4 => [
+//                        'url' => 'http://qa-tms' . $testDomainTop,
+//                        'name' => 'Top',
+//                        'target' => '_self',
+//                    ],
+//
+//                    5 => [
+//                        'url' => 'http://tms' . $domainLine,
+//                        'name' => '1000',
+//                        'target' => '_self',
+//                    ],
+//                    2 => [
+//                        'url' => 'http://52.221.152.145:88/server/qa-tms/merge_requests/new#',
+//                        'name' => 'Git',
+//                        'target' => '_self',
+//                    ],
+//                    3 => [
+//                        'url' => 'http://192.168.8.17:8080/jenkins/job/qa-tms/',
+//                        'name' => 'Jenkins',
+//                        'target' => '_self',
+//                    ],
+//                ]
+//            ],
             'WMS' => [
                 'name' => 'WMS',
                 'color' => '#9966CC',
@@ -256,7 +256,7 @@ ORDER BY
                         'target' => '_self',
                     ],
                     3 => [
-                        'url' => 'http://192.168.9.157:8080/jenkins/job/wms-test',
+                        'url' => 'http://192.168.8.17:8080/jenkins/job/wms-test',
                         'name' => 'Jenkins',
                         'target' => '_self',
                     ],
@@ -289,7 +289,7 @@ ORDER BY
                         'target' => '_self',
                     ],
                     3 => [
-                        'url' => 'http://192.168.9.157:8080/jenkins/job/tms/',
+                        'url' => 'http://192.168.8.17:8080/jenkins/job/tms-test/',
                         'name' => 'Jenkins',
                         'target' => '_self',
                     ],
@@ -322,7 +322,7 @@ ORDER BY
                         'target' => '_self',
                     ],
                     3 => [
-                        'url' => 'http://192.168.9.157:8080/jenkins/job/oc/',
+                        'url' => 'http://192.168.8.17:8080/jenkins/job/oc/',
                         'name' => 'Jenkins',
                         'target' => '_self',
                     ],
@@ -355,7 +355,7 @@ ORDER BY
                         'target' => '_self',
                     ],
                     3 => [
-                        'url' => 'http://192.168.9.157:8080/jenkins/job/fms/',
+                        'url' => 'http://192.168.8.17:8080/jenkins/job/fms/',
                         'name' => 'Jenkins',
                         'target' => '_self',
                     ],

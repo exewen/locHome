@@ -35,4 +35,6 @@ class TestController extends Controller
         event(new App\Events\DemoEvent());
     }
 
+    public function  sql
+
 }
