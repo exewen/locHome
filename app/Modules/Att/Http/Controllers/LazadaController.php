@@ -23,13 +23,26 @@ class LazadaController extends Controller
     const APICODE = 'LAZADAAPI';
 
     private $accessToken = null;
-    private $acount = null;
+    private $account = null;
 
 
+    public function __construct()
+    {
+        $sellerNameMaps = [
+            1 => 'fashion@patpat.com',
+            2 => 'patpatq-lazada@patpat.com',
+            3 => '1510212265@qq.com',
+        ];
+        $this->account = $sellerNameMaps[3]; // 查询店铺
+    }
+
+    /**
+     * 授权回调
+     */
     public function index()
     {
-        $this->acount = '1510212265@qq.com';
-        $this->token();
+        $code = Input::get('code', '');
+        $this->token($code);
         dd(['accessToken' => $this->accessToken]);
     }
 
@@ -40,14 +53,16 @@ class LazadaController extends Controller
      */
     public function token($code = '')
     {
-        $apiKey = self::APICODE . '_' . $this->acount;
+        $account = $this->account;
         /***token验证***/
-        $businessToken = LogisticsBusinessToken::token($apiKey);
+        $businessToken = LogisticsBusinessToken::token('LAZADAAPI', $account);
         if ($businessToken['status'] == 1) {
             $this->accessToken = $businessToken['access_token'];
             return $this->accessToken;
         } elseif ($businessToken['status'] == 2) {
-            dd('刷新');
+            if (env('APP_TEST')) {
+                throw new RuntimeException('LAZADA——token过期，需要refresh线上token');
+            }
             $refresh_token = $businessToken['refresh_token'];
             $method = "/auth/token/refresh";
             $http = self::AuthUrl . $method;
@@ -59,7 +74,6 @@ class LazadaController extends Controller
                 'sign_method' => 'sha256'
             ];
         } else {
-            $code = Input::get('code', 0);
             if ($code) {
                 $method = "/auth/token/create";
                 $http = self::AuthUrl . $method;
@@ -77,34 +91,38 @@ class LazadaController extends Controller
         $sign = $this->sign($method, $param);
         $param['sign'] = $sign;
         $http = $http . '?' . http_build_query($param);
+        $this->logger()->info(' lazadaToken 请求:' . json_encode($param));
         $response = $this->sendRequest($http, 'GET', []);
-        $this->logger()->info(self::APICODE . '---token---响应报文数据：' . $response);
+        $this->logger()->info(' lazadaToken 返回:' . $response);
         $result = json_decode($response);
-        if ($result->access_token) {
-            $record = LogisticsBusinessToken::where('api', $apiKey)->first();
+        if (isset($result->access_token)) {
+            //$authAccount = $result->account; // todo 不准
+            $authAccount = $this->account;
+            $record = LogisticsBusinessToken::where('api', 'LAZADAAPI')->where('account', $authAccount)->first();
             if ($record) {
-                LogisticsBusinessToken::where('api', $apiKey)
+                LogisticsBusinessToken::where('api', 'LAZADAAPI')->where('account', $authAccount)
                     ->update([
                         'access_token' => $result->access_token,
                         'refresh_token' => $result->refresh_token,
-                        'ex_time' => date('Y-m-d h:i:s', (time() + $result->expires_in)),
-                        'refresh_ex_time' => date('Y-m-d h:i:s', (time() + $result->refresh_expires_in)),
+                        'ex_time' => Carbon::now()->addSecond($result->expires_in)->toDateTimeString(),
+                        'refresh_ex_time' => Carbon::now()->addSecond($result->refresh_expires_in)->toDateTimeString(),
+
                     ]);
             } else {
                 LogisticsBusinessToken::create([
-                    'api' => $apiKey,
+                    'api' => 'LAZADAAPI',
                     'access_token' => $result->access_token,
                     'refresh_token' => $result->refresh_token,
-                    'ex_time' => date('Y-m-d h:i:s', (time() + $result->expires_in)),
-                    'refresh_ex_time' => date('Y-m-d h:i:s', (time() + $result->refresh_expires_in)),
+                    'ex_time' => Carbon::now()->addSecond($result->expires_in)->toDateTimeString(),
+                    'refresh_ex_time' => Carbon::now()->addSecond($result->refresh_expires_in)->toDateTimeString(),
                     'created_at' => Carbon::now()->toDateTimeString(),
-                    'account' => $result->account,
-                    'country_info' => join(',', array_column($result->country_user_info, 'country')),
+                    'account' => $authAccount,
                 ]);
             }
             $this->accessToken = $result->access_token;
         } else {
-            throw new RuntimeException("LAZADA换取TOKEN异常!" . $result->message);
+            $msg = isset($result->message) ? $result->message : $response;
+            throw new RuntimeException("LAZADA换取TOKEN异常:" . $msg);
         }
         return $this->accessToken;
 

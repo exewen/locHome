@@ -8,15 +8,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Cache;
 
-class LocController extends Controller {
+class LocController extends Controller
+{
     use BarcodeGenerator;
 
-    protected function repairDeliveryPhone($countryName, &$phone) {
+    protected function repairDeliveryPhone($countryName, &$phone)
+    {
         $res = DB::table('oms_country_currency')->where('country_name', $countryName)->first(['phone_area_code']);
         isset($res->phone_area_code) && $phone = $res->phone_area_code . $phone;
     }
 
-    protected function qcTest() {
+    protected function qcTest()
+    {
         $result = [];
         $location = [
             'A111',
@@ -68,7 +71,8 @@ ORDER BY
         return $result;
     }
 
-    protected function timeTo() {
+    protected function timeTo()
+    {
         date_default_timezone_set("Asia/Shanghai");
         $time = time();
         $today = date('Y-m-d', $time);
@@ -101,22 +105,25 @@ ORDER BY
         return $timeTo;
     }
 
-    public function params(Request $request) {
+    public function params(Request $request)
+    {
         Log::info("接收到参数" . json_encode($request->all()));
         return $_GET;
         return $request->all();
     }
 
-    public function test() {
+    public function test()
+    {
         $users = DB::select('select * from users ');
         exit(var_dump($users));
     }
 
-    private function configs() {
+    private function configs()
+    {
         $testDomain = '.dev.patpat.vip';
         $testDomainTop = '.dev.patpat.top';
         $domainLine = '.1000shores.com';
-        $domainLine2 = '.interfocus.org';
+        $domainLine2 = '.patpat.shop';
         $configs = [
 //            'QAWMS' => [
 //                'name' => 'QAWMS',
@@ -232,7 +239,7 @@ ORDER BY
 //            ],
             'WMS' => [
                 'name' => 'WMS',
-                'color' => '#9966CC',
+                'color' => '#f3715c',
                 'domain' => '',
                 'items' => [
                     0 => [
@@ -260,11 +267,16 @@ ORDER BY
                         'name' => 'Jenkins',
                         'target' => '_self',
                     ],
+                    4 => [
+                        'url' => 'http://wms.lan/debug/label',
+                        'name' => 'Label',
+                        'target' => '_self',
+                    ],
                 ]
             ],
             'TMS' => [
                 'name' => 'TMS',
-                'color' => '#495A80',
+                'color' => '#228fbd',
                 'domain' => '',
                 'items' => [
                     0 => [
@@ -297,7 +309,7 @@ ORDER BY
             ],
             'OC' => [
                 'name' => 'OC',
-                'color' => '#BDB76A',
+                'color' => '#ACE1AF',
                 'domain' => '',
                 'items' => [
                     0 => [
@@ -330,7 +342,7 @@ ORDER BY
             ],
             'FMS' => [
                 'name' => 'FMS',
-                'color' => '#483C32',
+                'color' => '#b7ba6b',
                 'domain' => '',
                 'items' => [
                     0 => [
@@ -363,7 +375,7 @@ ORDER BY
             ],
 
             'build' => [
-                'color' => '#6A1B9A',
+                'color' => '#fdb933',
                 'name' => '工具',
                 'domain' => '',
                 'items' => [
@@ -399,14 +411,16 @@ ORDER BY
         return $configs;
     }
 
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         $configs = $this->configs();
         $qcTest = $this->qcTest();
         $timeTo = $this->timeTo();
         return view('loc.index', compact('configs', 'qcTest', 'timeTo'));
     }
 
-    public function multiPage(Request $request) {
+    public function multiPage(Request $request)
+    {
         $pages = base64_decode($request->pages);
         $pagesArr = explode(",", trim($pages, ','));
         return view('loc.multiPage', [

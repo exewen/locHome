@@ -39,7 +39,7 @@
         }
 
         #section0 {
-            background-image: url({{URL::asset('images/4.jpg')}});
+            background-image: url({{URL::asset('images/wallpaper.jpg')}});
             color: #fff;
             text-shadow: 1px 1px 1px #333;
         }

@@ -13,4 +13,6 @@
 
 Route::group(['prefix' => 'att'], function() {
     Route::get('/lazada', 'LazadaController@index');
+    Route::get('/mercado', 'MercadoController@index');
+    Route::get('/mercado_auth', 'MercadoController@auth');
 });

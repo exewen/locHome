@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 
@@ -12,23 +13,30 @@ class LogisticsBusinessToken extends Model
 
     protected $connection = 'tms';
 
-    public static function token($api)
+    /**
+     * @param $api
+     * @param string $account 授权账号
+     * @return array|bool|int[]
+     */
+    public static function token($api, $account = '')
     {
-        $token = LogisticsBusinessToken::where('api',$api)->first();
-        if($token){
+        $mode = LogisticsBusinessToken::where('api', $api);
+        $account && $mode->where('account', $account);
+        $token = $mode->first();
+        if ($token) {
             /**过期验证**/
-            if(time() < strtotime($token->ex_time)){
-                return [ 'status'=>1, 'access_token' => $token->access_token];
-            /***令牌过期，刷新令牌可用***/
-            }elseif(time() >= strtotime($token->ex_time) && time() < strtotime($token->refresh_ex_time)){
-                return ['status' =>2,'refresh_token'=> $token->refresh_token ];
+            if (time() < strtotime($token->ex_time)) {
+                return ['status' => 1, 'access_token' => $token->access_token];
+                /***令牌过期，刷新令牌可用***/
+            } elseif (time() >= strtotime($token->ex_time) && time() < strtotime($token->refresh_ex_time)) {
+                return ['status' => 2, 'refresh_token' => $token->refresh_token];
                 /***都过期***/
-            }elseif(time() >= strtotime($token->ex_time) && time() > strtotime($token->refresh_ex_time)){
-                return ['status' =>3];
-            }else{
+            } elseif (time() >= strtotime($token->ex_time) && time() > strtotime($token->refresh_ex_time)) {
+                return ['status' => 3];
+            } else {
                 return false;
             }
-        }else{
+        } else {
             return false;
         }
     }
