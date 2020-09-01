@@ -20,6 +20,8 @@ class LocController extends Controller
 
     protected function qcTest()
     {
+
+
         $result = [];
         $location = [
             'A111',
@@ -79,7 +81,7 @@ ORDER BY
         $position = '2020-05-31';// 定位大周
         $weekend = date('Y-m-d', ($time + (7 - (date('w') == 0 ? 7 : date('w'))) * 24 * 3600));
         $isSmall = ((strtotime($weekend) - strtotime($position)) / 86400 / 7) % 2;
-
+        $isSmall = false;
         $title = $isSmall ? '小' : '大';
         $weekend = $isSmall ? date('Y-m-d', strtotime($weekend) - 86400) : date('Y-m-d', strtotime($weekend) - 86400 * 2);
         $timeTo = [
@@ -237,142 +239,116 @@ ORDER BY
 //                    ],
 //                ]
 //            ],
-            'WMS' => [
-                'name' => 'WMS',
+            'ERP' => [
+                'name' => 'ERP',
                 'color' => '#f3715c',
                 'domain' => '',
                 'items' => [
                     0 => [
-                        'url' => 'http://wms.lan/',
+                        'url' => 'http://loc.yms.com',
                         'name' => 'Lan',
                         'target' => '_self',
                     ],
                     1 => [
-                        'url' => 'http://wms' . $testDomain,
-                        'name' => 'Dev',
-                        'target' => '_self',
-                    ],
-                    5 => [
-                        'url' => 'http://wms' . $domainLine2,
-                        'name' => 'Line',
+                        'url' => 'https://dev.umaicloud.com',
+                        'name' => 'DEV',
                         'target' => '_self',
                     ],
                     2 => [
-                        'url' => 'http://52.221.152.145:88/server/wms/merge_requests/new#',
-                        'name' => 'Git',
+                        'url' => 'https://test0.umaicloud.com',
+                        'name' => 'TEST',
                         'target' => '_self',
                     ],
                     3 => [
-                        'url' => 'http://192.168.8.17:8080/jenkins/job/wms-test',
-                        'name' => 'Jenkins',
-                        'target' => '_self',
-                    ],
-                    4 => [
-                        'url' => 'http://wms.lan/debug/label',
-                        'name' => 'Label',
+                        'url' => 'https://gitee.com/ymserp/dashboard/projects/ymserp/ymserp/',
+                        'name' => 'Git',
                         'target' => '_self',
                     ],
                 ]
             ],
-            'TMS' => [
-                'name' => 'TMS',
+            '原型' => [
+                'name' => '原型',
                 'color' => '#228fbd',
                 'domain' => '',
                 'items' => [
                     0 => [
-                        'url' => 'http://tms.lan/',
-                        'name' => 'Lan',
+                        'url' => 'https://lanhuapp.com/url/lh7gt',
+                        'name' => '订单-EfMw',
                         'target' => '_self',
                     ],
                     1 => [
-                        'url' => 'http://tms' . $testDomain,
-                        'name' => 'Dev',
+                        'url' => 'https://axhub.im/ax9/1ca4d668a2559ffd/#g=1&id=id3b7z&p=%E5%8F%91%E8%B4%A7%E5%8D%95%E7%AE%A1%E7%90%86 ',
+                        'name' => '打单拣货',
                         'target' => '_self',
-                    ],
-
-                    5 => [
-                        'url' => 'http://tms' . $domainLine2,
-                        'name' => 'Line',
-                        'target' => '_self',
-                    ],
-                    2 => [
-                        'url' => 'http://52.221.152.145:88/server/tms/merge_requests/new#',
-                        'name' => 'Git',
-                        'target' => '_self',
-                    ],
-                    3 => [
-                        'url' => 'http://192.168.8.17:8080/jenkins/job/tms-test/',
-                        'name' => 'Jenkins',
-                        'target' => '_self',
-                    ],
+                    ]
                 ]
             ],
-            'OC' => [
-                'name' => 'OC',
-                'color' => '#ACE1AF',
-                'domain' => '',
-                'items' => [
-                    0 => [
-                        'url' => 'http://oc.lan/',
-                        'name' => 'Lan',
-                        'target' => '_self',
-                    ],
-                    1 => [
-                        'url' => 'http://oc' . $testDomain,
-                        'name' => 'Dev',
-                        'target' => '_self',
-                    ],
-
-                    5 => [
-                        'url' => 'http://oc' . $domainLine2,
-                        'name' => 'Line',
-                        'target' => '_self',
-                    ],
-                    2 => [
-                        'url' => 'http://52.221.152.145:88/server/oc/merge_requests/new#',
-                        'name' => 'Git',
-                        'target' => '_self',
-                    ],
-                    3 => [
-                        'url' => 'http://192.168.8.17:8080/jenkins/job/oc/',
-                        'name' => 'Jenkins',
-                        'target' => '_self',
-                    ],
-                ]
-            ],
-            'FMS' => [
-                'name' => 'FMS',
-                'color' => '#b7ba6b',
-                'domain' => '',
-                'items' => [
-                    0 => [
-                        'url' => 'http://fms.lan/',
-                        'name' => 'Lan',
-                        'target' => '_self',
-                    ],
-                    1 => [
-                        'url' => 'http://fms' . $testDomain,
-                        'name' => 'Dev',
-                        'target' => '_self',
-                    ],
-
-                    5 => [
-                        'url' => 'http://fms' . $domainLine2,
-                        'name' => 'Line',
-                        'target' => '_self',
-                    ],
-                    2 => [
-                        'url' => 'http://52.221.152.145:88/server/fms/merge_requests/new#',
-                        'name' => 'Git',
-                        'target' => '_self',
-                    ],
-                    3 => [
-                        'url' => 'http://192.168.8.17:8080/jenkins/job/fms/',
-                        'name' => 'Jenkins',
-                        'target' => '_self',
-                    ],
-                ]
-            ],
+//            'OC' => [
+//                'name' => 'OC',
+//                'color' => '#ACE1AF',
+//                'domain' => '',
+//                'items' => [
+//                    0 => [
+//                        'url' => 'http://oc.lan/',
+//                        'name' => 'Lan',
+//                        'target' => '_self',
+//                    ],
+//                    1 => [
+//                        'url' => 'http://oc' . $testDomain,
+//                        'name' => 'Dev',
+//                        'target' => '_self',
+//                    ],
+//
+//                    5 => [
+//                        'url' => 'http://oc' . $domainLine2,
+//                        'name' => 'Line',
+//                        'target' => '_self',
+//                    ],
+//                    2 => [
+//                        'url' => 'http://52.221.152.145:88/server/oc/merge_requests/new#',
+//                        'name' => 'Git',
+//                        'target' => '_self',
+//                    ],
+//                    3 => [
+//                        'url' => 'http://192.168.8.17:8080/jenkins/job/oc/',
+//                        'name' => 'Jenkins',
+//                        'target' => '_self',
+//                    ],
+//                ]
+//            ],
+//            'FMS' => [
+//                'name' => 'FMS',
+//                'color' => '#b7ba6b',
+//                'domain' => '',
+//                'items' => [
+//                    0 => [
+//                        'url' => 'http://fms.lan/',
+//                        'name' => 'Lan',
+//                        'target' => '_self',
+//                    ],
+//                    1 => [
+//                        'url' => 'http://fms' . $testDomain,
+//                        'name' => 'Dev',
+//                        'target' => '_self',
+//                    ],
+//
+//                    5 => [
+//                        'url' => 'http://fms' . $domainLine2,
+//                        'name' => 'Line',
+//                        'target' => '_self',
+//                    ],
+//                    2 => [
+//                        'url' => 'http://52.221.152.145:88/server/fms/merge_requests/new#',
+//                        'name' => 'Git',
+//                        'target' => '_self',
+//                    ],
+//                    3 => [
+//                        'url' => 'http://192.168.8.17:8080/jenkins/job/fms/',
+//                        'name' => 'Jenkins',
+//                        'target' => '_self',
+//                    ],
+//                ]
+//            ],
 
             'build' => [
                 'color' => '#fdb933',
@@ -384,24 +360,24 @@ ORDER BY
                         'name' => '企业邮箱',
                         'target' => '_self',
                     ],
-                    1 => [
-                        'url' => 'https://eat5vr.axshare.com/#g=1&p=%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%B5%81%E7%A8%8B',
-                        'name' => '系统概述',
-                        'target' => '_self',
-                    ],
                     2 => [
-                        'url' => 'https://www.italent.cn/',
-                        'name' => 'italent',
+                        'url' => 'https://www.tapd.cn/20202731/markdown_wikis/?#1120202731001002031',
+                        'name' => 'TAPD技术方案',
                         'target' => '_self',
                     ],
                     3 => [
-                        'url' => 'http://confluence.interfocus.org/#all-updates',
-                        'name' => 'confluence',
+                        'url' => 'https://csbd.w.eolinker.com/#/home/ams/project/inside/api/list?groupID=1101509&projectHashKey=CSkeAB688a2772a9b18f7332c0e97469d8cba6c5038d96f&spaceKey=csbd',
+                        'name' => '自发货API',
                         'target' => '_self',
                     ],
                     4 => [
-                        'url' => 'https://13.250.226.26/assets/user-asset/',
-                        'name' => '堡垒机',
+                        'url' => 'http://xhprof.lan/',
+                        'name' => 'xhprof',
+                        'target' => '_self',
+                    ],
+                    5 => [
+                        'url' => 'https://www.tapd.cn/my_dashboard',
+                        'name' => '需求',
                         'target' => '_self',
                     ],
                 ]
@@ -413,8 +389,46 @@ ORDER BY
 
     public function index(Request $request)
     {
+        $sql = '';
+        for ($i = 0; $i <= 9; $i++) {
+//            $sqlA = "DROP TABLE IF EXISTS `tag_lists_{$i}`;
+//create table tag_lists_{$i}
+//(
+//   id                   int(10) not null auto_increment comment '标签ID',
+//   zid                  int(10) comment '企业ID,zid为0时是系统标签',
+//   tag_name             varchar(100) not null comment '标签名称',
+//   tag_group            tinyint(4) not null default 1 comment '标签所属功能板块:1订单管理,2客服板块',
+//   tag_type             tinyint(4) not null default 2 comment '标签类型:1处理标签,2订单标签',
+//   tag_color            varchar(6) not null default 'DCDCDC' comment '标签颜色(十六进制):例如FFB6C1',
+//   uid                  int(10) not null comment '操作人ID',
+//   is_default           tinyint(4) not null default 0 comment '系统默认标签:1是,0否',
+//   is_delete            tinyint(4) default 0 comment '删除标识:0未删除,1已删除',
+//   gmt_modified         datetime default CURRENT_TIMESTAMP comment '修改时间',
+//   gmt_create           datetime default CURRENT_TIMESTAMP comment '创建时间',
+//   primary key (id)
+//)
+//auto_increment = 1;";
+            $sqlA = "DROP TABLE IF EXISTS `oms_order_tag_lists_{$i}`;
+create table oms_order_tag_lists_{$i}
+(
+   id                   int(10) not null auto_increment comment '自增ID',
+   zid                  int(10) not null comment '企业ID',
+   order_number         varchar(32) not null comment '系统订单号',
+   tag_id               int(10) not null comment '标签ID',
+   tag_type             tinyint(4) not null default 2 comment '标签类型:1处理标签,2订单标签,3系统处理标签,4系统订单标签',
+   is_detele            tinyint(4) default 0 comment '删除标记:0未删除,1已删除',
+   gmt_modified         datetime default CURRENT_TIMESTAMP comment '修改时间',
+   gmt_create           datetime default CURRENT_TIMESTAMP comment '创建时间',
+   primary key (id)
+)
+auto_increment = 1;";
+            $sql .= $sqlA;
+        }
+        //dd(str_replace(array("\r\n", "\r", "\n"),'',$sql));
+
         $configs = $this->configs();
-        $qcTest = $this->qcTest();
+//        $qcTest = $this->qcTest();
+        $qcTest = [];
         $timeTo = $this->timeTo();
         return view('loc.index', compact('configs', 'qcTest', 'timeTo'));
     }

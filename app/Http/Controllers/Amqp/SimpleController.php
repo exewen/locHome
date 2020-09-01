@@ -16,7 +16,7 @@ class SimpleController extends Controller
         $channel = $this->connection->channel();
 
         // 1 声明队列
-        $channel->queue_declare($this->queueName, false, false, false, false);
+        $channel->queue_declare($this->queueName, false, true, false, false);
 
         $msg = new AMQPMessage('Hello World!');
         // 2 发送消息到队列

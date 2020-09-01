@@ -316,46 +316,48 @@
 {{--            </div>--}}
             <div class="intro">
                 <div style="width: 1800px;height: 800px;margin: 0 auto;overflow: auto;color: red;">
-                    @foreach ($qcTest['location'] as $location=> $locationQrCode)
-                        <div style="display: flex;height: 400px;">
-                            <div style="flex: 1;">
-                                <img width="200px;" src="{{$locationQrCode}}" alt="{{$location}}">
-                                <div style="padding: 10px;">
-                                    <p>{{$location}}</p>
-                                </div>
-                            </div>
-                            <div style="flex: 4;">
-                                <div class="swiper-container">
-                                    <div class="swiper-wrapper">
-                                        @if(isset($qcTest['skuCode'][$location]))
-                                            @foreach ($qcTest['skuCode'][$location] as $item)
-                                                <div class="swiper-slide">
-                                                    <img width="250px;" src="{{$item->sku_code_qr_code}}"
-                                                         alt="{{$item->sku_code}}">
-                                                    <div style="padding: 10px;">
-                                                        <p>{{$item->sku_code}}</p>
-                                                        <p>{{$item->quality_level}}</p>
-                                                        <p>可用{{$item->sum_existing_number}}</p>
-                                                        <p>锁定{{$item->sum_allocate_number}}</p>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        @endif
+                    @if($qcTest)
+                        @foreach ($qcTest['location'] as $location=> $locationQrCode)
+                            <div style="display: flex;height: 400px;">
+                                <div style="flex: 1;">
+                                    <img width="200px;" src="{{$locationQrCode}}" alt="{{$location}}">
+                                    <div style="padding: 10px;">
+                                        <p>{{$location}}</p>
                                     </div>
-                                    <!-- 如果需要分页器 -->
-                                    <div class="swiper-pagination"></div>
-
-                                    <!-- 如果需要导航按钮 -->
-                                    <div class="swiper-button-prev"></div>
-                                    <div class="swiper-button-next"></div>
-
-                                    <!-- 如果需要滚动条 -->
-                                    <div class="swiper-scrollbar"></div>
                                 </div>
+                                <div style="flex: 4;">
+                                    <div class="swiper-container">
+                                        <div class="swiper-wrapper">
+                                            @if(isset($qcTest['skuCode'][$location]))
+                                                @foreach ($qcTest['skuCode'][$location] as $item)
+                                                    <div class="swiper-slide">
+                                                        <img width="250px;" src="{{$item->sku_code_qr_code}}"
+                                                             alt="{{$item->sku_code}}">
+                                                        <div style="padding: 10px;">
+                                                            <p>{{$item->sku_code}}</p>
+                                                            <p>{{$item->quality_level}}</p>
+                                                            <p>可用{{$item->sum_existing_number}}</p>
+                                                            <p>锁定{{$item->sum_allocate_number}}</p>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                        <!-- 如果需要分页器 -->
+                                        <div class="swiper-pagination"></div>
 
+                                        <!-- 如果需要导航按钮 -->
+                                        <div class="swiper-button-prev"></div>
+                                        <div class="swiper-button-next"></div>
+
+                                        <!-- 如果需要滚动条 -->
+                                        <div class="swiper-scrollbar"></div>
+                                    </div>
+
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
